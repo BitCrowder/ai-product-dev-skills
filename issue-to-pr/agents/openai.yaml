@@ -1,0 +1,4 @@
+interface:
+  display_name: "Issue To PR"
+  short_description: "Turn issues into safe, review-ready PRs"
+  default_prompt: "Use $issue-to-pr to turn this issue into an implementation plan, code changes, tests, and a PR summary."
