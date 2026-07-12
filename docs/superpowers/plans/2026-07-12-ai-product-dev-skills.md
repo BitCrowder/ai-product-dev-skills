@@ -65,8 +65,8 @@
 **Files:**
 - Read: full repository tree
 
-- [ ] Initialize local git repository.
-- [ ] Commit all files.
-- [ ] Create public GitHub repo `BitCrowder/ai-product-dev-skills`.
-- [ ] Push or upload files.
-- [ ] Verify remote visibility and file tree.
+- [x] Initialize local git repository.
+- [x] Commit all files.
+- [x] Create public GitHub repo `BitCrowder/ai-product-dev-skills`.
+- [x] Push or upload files.
+- [x] Verify remote visibility and file tree.
