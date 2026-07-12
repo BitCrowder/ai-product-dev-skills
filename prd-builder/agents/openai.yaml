@@ -1,0 +1,4 @@
+interface:
+  display_name: "PRD Builder"
+  short_description: "Turn product ideas into engineering-ready PRDs"
+  default_prompt: "Use $prd-builder to turn my feature idea into a structured PRD with scope, metrics, risks, and acceptance criteria."
