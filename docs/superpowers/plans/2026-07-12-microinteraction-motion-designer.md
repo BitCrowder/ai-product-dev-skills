@@ -50,6 +50,6 @@
 
 - [x] Run `quick_validate.py`.
 - [x] Scan for template TODO text.
-- [ ] Commit local changes.
-- [ ] Upload changes to `BitCrowder/ai-product-dev-skills`.
-- [ ] Verify remote file tree.
+- [x] Commit local changes.
+- [x] Upload changes to `BitCrowder/ai-product-dev-skills`.
+- [x] Verify remote file tree.
