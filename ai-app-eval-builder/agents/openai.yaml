@@ -1,0 +1,4 @@
+interface:
+  display_name: "AI App Eval Builder"
+  short_description: "Design evals for LLM, RAG, and agent apps"
+  default_prompt: "Use $ai-app-eval-builder to create an eval plan, dataset schema, rubric, thresholds, and regression workflow for my AI feature."
