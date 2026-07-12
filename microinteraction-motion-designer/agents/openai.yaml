@@ -1,0 +1,4 @@
+interface:
+  display_name: "Microinteraction Motion Designer"
+  short_description: "Design premium UI microinteractions for apps"
+  default_prompt: "Use $microinteraction-motion-designer to design polished microinteractions and implementation-ready motion specs for my UI."
