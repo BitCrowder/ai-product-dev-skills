@@ -1,0 +1,4 @@
+interface:
+  display_name: "Launch Readiness Checklist"
+  short_description: "Assess release readiness, risks, and go/no-go"
+  default_prompt: "Use $launch-readiness-checklist to create a go/no-go launch checklist with blockers, owners, risks, monitoring, and rollback."
