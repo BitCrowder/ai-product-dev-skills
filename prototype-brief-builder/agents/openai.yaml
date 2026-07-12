@@ -1,0 +1,4 @@
+interface:
+  display_name: "Prototype Brief Builder"
+  short_description: "Turn requirements into prototype-ready UX briefs"
+  default_prompt: "Use $prototype-brief-builder to turn my product idea into a screen-by-screen prototype brief with flows, states, and handoff notes."
