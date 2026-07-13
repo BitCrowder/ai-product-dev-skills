@@ -1,4 +1,4 @@
 interface:
-  display_name: "Code Review Assistant"
-  short_description: "Review code for bugs, regressions, and test gaps"
-  default_prompt: "Use $code-review-assistant to review this diff for bugs, risks, regressions, and missing tests."
+  display_name: "代码审查助手"
+  short_description: "审查代码中的 Bug、风险和测试缺口"
+  default_prompt: "Use $code-review-assistant：请根据我的问题生成结构化、可执行的结果。"
