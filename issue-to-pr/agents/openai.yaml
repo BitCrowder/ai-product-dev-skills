@@ -1,4 +1,4 @@
 interface:
-  display_name: "Issue To PR"
-  short_description: "Turn issues into safe, review-ready PRs"
-  default_prompt: "Use $issue-to-pr to turn this issue into an implementation plan, code changes, tests, and a PR summary."
+  display_name: "Issue 到 PR 执行器"
+  short_description: "把 Issue 转成实现计划、测试和 PR 描述"
+  default_prompt: "Use $issue-to-pr：请根据我的问题生成结构化、可执行的结果。"
