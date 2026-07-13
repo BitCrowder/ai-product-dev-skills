@@ -1,4 +1,4 @@
 interface:
-  display_name: "Metric Diagnosis"
-  short_description: "Diagnose funnels, retention, conversion, and anomalies"
-  default_prompt: "Use $metric-diagnosis to analyze why this product metric changed and produce ranked hypotheses with validation steps."
+  display_name: "产品指标诊断器"
+  short_description: "诊断转化、留存、漏斗和指标异常"
+  default_prompt: "Use $metric-diagnosis：请根据我的问题生成结构化、可执行的结果。"
