@@ -5,6 +5,10 @@ description: Produce evidence-based competitive research briefs for products, ma
 
 # Competitive Research Brief
 
+## 中文简介
+
+**竞品调研简报**：用于做有证据的竞品分析：定位、功能、价格、用户评价、差异化机会、可借鉴点和风险。适合产品立项、市场分析和功能对比。
+
 ## Overview
 
 Use this skill to create competitive research that is sourced, comparable, decision-oriented, and honest about uncertainty.
