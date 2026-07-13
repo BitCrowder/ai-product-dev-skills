@@ -5,6 +5,10 @@ description: Perform senior-engineer code reviews for pull requests, diffs, patc
 
 # Code Review Assistant
 
+## 中文简介
+
+**代码审查助手**：像资深工程师一样审查 PR、diff 或代码文件，优先发现 Bug、回归风险、边界问题和测试缺口，而不是泛泛总结代码。
+
 ## Overview
 
 Use this skill to review code for correctness, regressions, missing tests, security-sensitive behavior, data loss, performance, accessibility, and maintainability.
