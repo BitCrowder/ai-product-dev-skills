@@ -5,6 +5,10 @@ description: Design and implement product-quality microinteractions for apps, we
 
 # Microinteraction Motion Designer
 
+## 中文简介
+
+**微动效设计器**：用于把“界面更丝滑、更高级”转成可实现的微动效规格，覆盖列表进入、按压反馈、骨架屏、Tab、页面切换、拖拽、图表和状态变化。
+
 ## Overview
 
 Use this skill to turn vague requests like "make it smoother" or "add premium motion" into precise, implementation-ready microinteraction specifications.
