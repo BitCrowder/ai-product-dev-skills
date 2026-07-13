@@ -5,6 +5,10 @@ description: Create user discovery plans, interview scripts, follow-up questions
 
 # Feature Discovery Interviewer
 
+## 中文简介
+
+**功能探索访谈设计器**：用于生成用户访谈提纲、追问问题、假设验证路径和访谈总结模板。适合在写 PRD 或做功能前验证真实用户需求。
+
 ## Overview
 
 Use this skill to design and synthesize product discovery interviews. The goal is to learn about real user behavior, pain, context, and constraints before committing to a solution.
