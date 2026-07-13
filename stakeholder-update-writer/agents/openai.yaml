@@ -1,0 +1,4 @@
+interface:
+  display_name: "Stakeholder Update Writer"
+  short_description: "Write clear status updates, risks, and decision notes"
+  default_prompt: "Use $stakeholder-update-writer to turn my rough project notes into a concise stakeholder update with risks and next steps."
