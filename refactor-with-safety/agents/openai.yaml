@@ -1,0 +1,4 @@
+interface:
+  display_name: "Refactor With Safety"
+  short_description: "Refactor in small verified behavior-preserving steps"
+  default_prompt: "Use $refactor-with-safety to plan a behavior-preserving refactor with tests, steps, and rollback guidance."
