@@ -1,4 +1,4 @@
 interface:
-  display_name: "Test Generator"
-  short_description: "Create focused tests for behavior and regressions"
-  default_prompt: "Use $test-generator to design and write focused tests for this feature or bug fix."
+  display_name: "测试生成器"
+  short_description: "生成聚焦行为和回归风险的测试方案"
+  default_prompt: "Use $test-generator：请根据我的问题生成结构化、可执行的结果。"
