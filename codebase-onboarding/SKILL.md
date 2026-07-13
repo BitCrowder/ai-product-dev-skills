@@ -5,6 +5,10 @@ description: Quickly understand and explain unfamiliar codebases, repositories, 
 
 # Codebase Onboarding
 
+## 中文简介
+
+**代码库入门导航**：快速读懂陌生仓库：技术栈、目录结构、入口文件、运行命令、测试方式、核心模块、数据流和风险点。适合接手新项目或改代码前先建立全局认知。
+
 ## Overview
 
 Use this skill to build a practical mental model of a codebase before changing it. The output should help a developer know where to start, what matters, how to run it, and what risks exist.
