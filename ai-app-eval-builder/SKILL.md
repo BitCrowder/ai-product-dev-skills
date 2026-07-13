@@ -5,6 +5,10 @@ description: Design evaluation systems for AI applications, LLM features, RAG pi
 
 # AI App Eval Builder
 
+## 中文简介
+
+**AI 应用评测设计器**：为 LLM、RAG、Agent 或 AI 功能设计评测方案、测试集、评分标准、失败分类和回归门槛。适合在上线前判断 AI 效果是否可靠。
+
 ## Overview
 
 Use this skill to turn vague AI quality goals into measurable eval plans with datasets, rubrics, graders, failure taxonomy, thresholds, and regression workflow.
