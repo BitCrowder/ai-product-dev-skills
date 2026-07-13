@@ -5,6 +5,10 @@ description: Systematically debug bugs, regressions, crashes, flaky tests, broke
 
 # Bug Debugging Playbook
 
+## 中文简介
+
+**系统化 Bug 调试手册**：用于排查 Bug、崩溃、回归、失败测试或异常行为。它会先复现问题、建立假设、定位根因，再给出最小修复和回归验证。
+
 ## Overview
 
 Use this skill to debug before fixing. The workflow emphasizes reproduction, evidence, hypotheses, root cause, minimal change, and regression verification.
