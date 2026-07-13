@@ -1,4 +1,4 @@
 interface:
-  display_name: "Competitive Research Brief"
-  short_description: "Create sourced competitor matrices and insights"
-  default_prompt: "Use $competitive-research-brief to research competitors and produce a sourced comparison with opportunities and risks."
+  display_name: "竞品调研简报"
+  short_description: "生成有证据的竞品矩阵和机会分析"
+  default_prompt: "Use $competitive-research-brief：请根据我的问题生成结构化、可执行的结果。"
