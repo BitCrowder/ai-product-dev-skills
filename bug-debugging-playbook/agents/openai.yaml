@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bug Debugging Playbook"
+  short_description: "Reproduce, isolate, fix, and verify bugs"
+  default_prompt: "Use $bug-debugging-playbook to investigate this bug systematically and produce a minimal verified fix."
