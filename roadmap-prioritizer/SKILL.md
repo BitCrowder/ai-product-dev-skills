@@ -5,6 +5,10 @@ description: Prioritize product roadmaps, feature backlogs, opportunities, exper
 
 # Roadmap Prioritizer
 
+## 中文简介
+
+**路线图优先级排序器**：用 RICE、ICE、Kano、MoSCoW、影响/成本或自定义评分给需求、功能和机会排序，并解释取舍、依赖和推荐路线图。
+
 ## Overview
 
 Use this skill to turn a messy backlog into a defensible roadmap. The output must show the scoring model, assumptions, tradeoffs, confidence, dependencies, and recommended sequence.
