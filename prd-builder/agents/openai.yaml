@@ -1,4 +1,4 @@
 interface:
-  display_name: "PRD Builder"
-  short_description: "Turn product ideas into engineering-ready PRDs"
-  default_prompt: "Use $prd-builder to turn my feature idea into a structured PRD with scope, metrics, risks, and acceptance criteria."
+  display_name: "PRD 生成器"
+  short_description: "把产品想法整理成工程可用 PRD"
+  default_prompt: "Use $prd-builder：请根据我的问题生成结构化、可执行的结果。"
