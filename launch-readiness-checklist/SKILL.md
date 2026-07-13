@@ -5,6 +5,10 @@ description: Create launch readiness checklists and go/no-go plans for product r
 
 # Launch Readiness Checklist
 
+## 中文简介
+
+**上线就绪检查清单**：用于发布前检查功能、文案、埋点、客服、FAQ、风控、监控、回滚和 go/no-go 决策。适合产品上线、灰度、Beta 或重大变更。
+
 ## Overview
 
 Use this skill to turn a planned release into a cross-functional readiness review with clear owners, blockers, risks, rollback criteria, and go/no-go recommendation.
