@@ -1,0 +1,4 @@
+interface:
+  display_name: "Skill 仓库发布验证器"
+  short_description: "验证 Skill 仓库并确认 GitHub 同步完成"
+  default_prompt: "Use $skill-repo-release-verifier：请验证这个 Skill 仓库、本地提交、GitHub 同步和远端文件树。"
