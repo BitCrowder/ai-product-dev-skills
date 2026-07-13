@@ -5,6 +5,10 @@ description: Synthesize user feedback from interviews, surveys, support tickets,
 
 # User Feedback Synthesizer
 
+## 中文简介
+
+**用户反馈综合器**：把访谈、问卷、工单、评论、NPS、销售记录或社区反馈聚类成主题、痛点、机会、代表性引用、优先级和产品建议。
+
 ## Overview
 
 Use this skill to turn raw feedback into evidence-backed product insight. The output must preserve user voice while separating quotes, themes, interpretation, and recommendations.
