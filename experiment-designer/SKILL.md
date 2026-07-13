@@ -5,6 +5,10 @@ description: Design A/B tests, holdouts, beta rollouts, feature flags, pricing t
 
 # Experiment Designer
 
+## 中文简介
+
+**实验设计器**：用于设计 A/B 测试、灰度发布、Beta、假门测试或产品验证实验，明确假设、样本、指标、风险、停止规则和成功标准。
+
 ## Overview
 
 Use this skill to convert a product hypothesis into a valid experiment with success metrics, guardrails, target population, variants, rollout, risks, and decision rules.
