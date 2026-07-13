@@ -1,0 +1,4 @@
+interface:
+  display_name: "Experiment Designer"
+  short_description: "Design A/B tests, rollouts, and validation plans"
+  default_prompt: "Use $experiment-designer to turn my product hypothesis into a safe experiment with metrics, guardrails, and decision rules."
