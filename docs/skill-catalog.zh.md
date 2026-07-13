@@ -19,6 +19,7 @@
 | `prototype-brief-builder` | 原型说明生成器 | 把产品想法或 PRD 转成可交给设计师、Figma、Codex 或 Cursor 的原型说明，包含页面流、组件状态、交互规则和交付要求。 |
 | `refactor-with-safety` | 安全重构助手 | 用于在不改变用户可见行为的前提下重构代码。它会先锁定行为和测试，再小步调整结构、抽取模块、减少重复并验证。 |
 | `roadmap-prioritizer` | 路线图优先级排序器 | 用 RICE、ICE、Kano、MoSCoW、影响/成本或自定义评分给需求、功能和机会排序，并解释取舍、依赖和推荐路线图。 |
+| `skill-repo-release-verifier` | Skill 仓库发布验证器 | 把 Skill 仓库发布前后的验证流程标准化：本地校验、中文简介检查、模板残留扫描、提交、GitHub 同步和远端文件树核验，避免每次都从头验证。 |
 | `spec-to-implementation-plan` | 规格转实施计划 | 把 PRD、设计说明、技术规格或模糊需求拆成工程实施计划，包括任务、文件、接口、测试、风险、上线和验证步骤。 |
 | `stakeholder-update-writer` | 干系人汇报撰写器 | 把项目进展、周报、风险、阻塞、决策和下一步整理成清晰的老板/团队/跨部门汇报，适合周报、邮件、Slack 和项目同步。 |
 | `test-generator` | 测试生成器 | 根据需求、Bug、代码路径或重构目标设计测试，覆盖单元、集成、组件、E2E、回归、边界、错误和空状态。 |
@@ -45,3 +46,4 @@
 - 安全重构：`refactor-with-safety`
 - AI 应用评测：`ai-app-eval-builder`
 - 干系人汇报：`stakeholder-update-writer`
+- Skill 仓库发布验证：`skill-repo-release-verifier`
