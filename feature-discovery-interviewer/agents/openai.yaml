@@ -1,0 +1,4 @@
+interface:
+  display_name: "Feature Discovery Interviewer"
+  short_description: "Plan user interviews and synthesize discovery insights"
+  default_prompt: "Use $feature-discovery-interviewer to create a user interview script, probes, hypothesis tests, and synthesis template."
