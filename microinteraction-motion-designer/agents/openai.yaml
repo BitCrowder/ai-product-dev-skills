@@ -1,4 +1,4 @@
 interface:
-  display_name: "Microinteraction Motion Designer"
-  short_description: "Design premium UI microinteractions for apps"
-  default_prompt: "Use $microinteraction-motion-designer to design polished microinteractions and implementation-ready motion specs for my UI."
+  display_name: "微动效设计器"
+  short_description: "设计 APP 和网页的高级微动效规格"
+  default_prompt: "Use $microinteraction-motion-designer：请根据我的问题生成结构化、可执行的结果。"
