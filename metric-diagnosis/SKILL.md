@@ -5,6 +5,10 @@ description: Diagnose product metrics, funnels, retention, activation, conversio
 
 # Metric Diagnosis
 
+## 中文简介
+
+**产品指标诊断器**：用于分析转化率、留存、激活、漏斗、收入、异常波动等指标变化，拆解数据质量、分群、假设和验证路径。
+
 ## Overview
 
 Use this skill to diagnose product metric movement with structured hypotheses, segmentation, and validation steps.
