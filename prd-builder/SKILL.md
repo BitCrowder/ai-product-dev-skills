@@ -5,6 +5,10 @@ description: Create rigorous product requirements documents from ideas, stakehol
 
 # PRD Builder
 
+## 中文简介
+
+**PRD 生成器**：把模糊产品想法、用户问题或会议笔记整理成工程可用的 PRD，包括目标、用户、范围、需求、指标、风险、验收标准和待确认问题。
+
 ## Overview
 
 Use this skill to turn ambiguous product ideas into review-ready PRDs with clear goals, user needs, requirements, scope boundaries, success metrics, risks, and acceptance criteria.
