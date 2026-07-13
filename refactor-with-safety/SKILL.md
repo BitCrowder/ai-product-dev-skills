@@ -5,6 +5,10 @@ description: Plan and execute safe refactors that preserve behavior while improv
 
 # Refactor With Safety
 
+## 中文简介
+
+**安全重构助手**：用于在不改变用户可见行为的前提下重构代码。它会先锁定行为和测试，再小步调整结构、抽取模块、减少重复并验证。
+
 ## Overview
 
 Use this skill to refactor without accidental behavior changes. The workflow locks behavior first, changes structure in small steps, and verifies after each meaningful change.
