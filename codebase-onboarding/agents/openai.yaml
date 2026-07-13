@@ -1,4 +1,4 @@
 interface:
-  display_name: "Codebase Onboarding"
-  short_description: "Map a repo's architecture, commands, and risks"
-  default_prompt: "Use $codebase-onboarding to understand this repository's structure, stack, entry points, tests, and risks."
+  display_name: "代码库入门导航"
+  short_description: "快速读懂仓库结构、入口和风险点"
+  default_prompt: "Use $codebase-onboarding：请根据我的问题生成结构化、可执行的结果。"
