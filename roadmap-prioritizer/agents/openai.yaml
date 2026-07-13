@@ -1,0 +1,4 @@
+interface:
+  display_name: "Roadmap Prioritizer"
+  short_description: "Rank features with RICE, ICE, Kano, or custom scoring"
+  default_prompt: "Use $roadmap-prioritizer to rank my feature ideas, explain tradeoffs, and create a now/next/later roadmap."
