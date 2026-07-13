@@ -1,4 +1,4 @@
 interface:
-  display_name: "User Feedback Synthesizer"
-  short_description: "Cluster feedback into themes and product opportunities"
-  default_prompt: "Use $user-feedback-synthesizer to synthesize this feedback into themes, quotes, severity, opportunities, and recommended actions."
+  display_name: "用户反馈综合器"
+  short_description: "把用户反馈聚类成主题、痛点和机会"
+  default_prompt: "Use $user-feedback-synthesizer：请根据我的问题生成结构化、可执行的结果。"
