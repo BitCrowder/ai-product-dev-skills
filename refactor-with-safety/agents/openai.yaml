@@ -1,4 +1,4 @@
 interface:
-  display_name: "Refactor With Safety"
-  short_description: "Refactor in small verified behavior-preserving steps"
-  default_prompt: "Use $refactor-with-safety to plan a behavior-preserving refactor with tests, steps, and rollback guidance."
+  display_name: "安全重构助手"
+  short_description: "安全地小步重构并保持行为不变"
+  default_prompt: "Use $refactor-with-safety：请根据我的问题生成结构化、可执行的结果。"
