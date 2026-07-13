@@ -1,4 +1,4 @@
 interface:
-  display_name: "Launch Readiness Checklist"
-  short_description: "Assess release readiness, risks, and go/no-go"
-  default_prompt: "Use $launch-readiness-checklist to create a go/no-go launch checklist with blockers, owners, risks, monitoring, and rollback."
+  display_name: "上线就绪检查清单"
+  short_description: "检查上线风险、监控、客服和回滚准备"
+  default_prompt: "Use $launch-readiness-checklist：请根据我的问题生成结构化、可执行的结果。"
