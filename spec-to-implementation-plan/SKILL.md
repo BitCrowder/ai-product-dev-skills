@@ -5,6 +5,10 @@ description: Convert product specs, PRDs, tickets, design briefs, technical prop
 
 # Spec To Implementation Plan
 
+## 中文简介
+
+**规格转实施计划**：把 PRD、设计说明、技术规格或模糊需求拆成工程实施计划，包括任务、文件、接口、测试、风险、上线和验证步骤。
+
 ## Overview
 
 Use this skill to translate requirements into an executable engineering plan. The plan must be small-step, testable, scoped, and explicit enough for another agent or engineer to execute.
