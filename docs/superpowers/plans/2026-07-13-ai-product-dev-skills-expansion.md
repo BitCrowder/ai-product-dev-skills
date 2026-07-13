@@ -57,6 +57,6 @@
 
 - [x] Run `quick_validate.py` on each new skill.
 - [x] Scan for TODO/template residue.
-- [ ] Commit local changes.
-- [ ] Upload changes to GitHub.
-- [ ] Verify remote file tree.
+- [x] Commit local changes.
+- [x] Upload changes to GitHub.
+- [x] Verify remote file tree.
