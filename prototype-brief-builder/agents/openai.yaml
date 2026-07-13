@@ -1,4 +1,4 @@
 interface:
-  display_name: "Prototype Brief Builder"
-  short_description: "Turn requirements into prototype-ready UX briefs"
-  default_prompt: "Use $prototype-brief-builder to turn my product idea into a screen-by-screen prototype brief with flows, states, and handoff notes."
+  display_name: "原型说明生成器"
+  short_description: "把产品想法转成原型和交互说明"
+  default_prompt: "Use $prototype-brief-builder：请根据我的问题生成结构化、可执行的结果。"
