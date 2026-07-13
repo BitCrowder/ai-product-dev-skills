@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test Generator"
+  short_description: "Create focused tests for behavior and regressions"
+  default_prompt: "Use $test-generator to design and write focused tests for this feature or bug fix."
