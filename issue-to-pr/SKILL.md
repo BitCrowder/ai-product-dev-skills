@@ -5,6 +5,10 @@ description: Convert GitHub issues, bug reports, feature requests, Linear/Jira t
 
 # Issue To PR
 
+## 中文简介
+
+**Issue 到 PR 执行器**：把 GitHub Issue、Bug 报告或需求单转成实现计划、代码修改策略、测试方案、验证记录和 PR 描述。适合从任务到可审查 PR 的完整执行。
+
 ## Overview
 
 Use this skill to move from an issue or ticket to a review-ready pull request with minimal scope, clear evidence, and traceable verification.
