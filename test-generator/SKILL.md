@@ -5,6 +5,10 @@ description: Generate focused tests for features, bug fixes, code paths, APIs, U
 
 # Test Generator
 
+## 中文简介
+
+**测试生成器**：根据需求、Bug、代码路径或重构目标设计测试，覆盖单元、集成、组件、E2E、回归、边界、错误和空状态。
+
 ## Overview
 
 Use this skill to create meaningful tests tied to behavior and risk. Tests should prove requirements, catch regressions, and document edge cases.
