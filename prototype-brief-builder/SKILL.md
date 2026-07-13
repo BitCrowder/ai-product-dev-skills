@@ -5,6 +5,10 @@ description: Convert product requirements, PRDs, feature ideas, user flows, sket
 
 # Prototype Brief Builder
 
+## 中文简介
+
+**原型说明生成器**：把产品想法或 PRD 转成可交给设计师、Figma、Codex 或 Cursor 的原型说明，包含页面流、组件状态、交互规则和交付要求。
+
 ## Overview
 
 Use this skill to transform product intent into a prototype brief that can be executed by a designer, design tool, or coding agent.
