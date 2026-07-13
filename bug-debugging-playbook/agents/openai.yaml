@@ -1,4 +1,4 @@
 interface:
-  display_name: "Bug Debugging Playbook"
-  short_description: "Reproduce, isolate, fix, and verify bugs"
-  default_prompt: "Use $bug-debugging-playbook to investigate this bug systematically and produce a minimal verified fix."
+  display_name: "系统化 Bug 调试手册"
+  short_description: "系统化复现、定位、修复和验证 Bug"
+  default_prompt: "Use $bug-debugging-playbook：请根据我的问题生成结构化、可执行的结果。"
