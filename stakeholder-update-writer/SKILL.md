@@ -5,6 +5,10 @@ description: Write stakeholder updates, weekly reports, executive summaries, pro
 
 # Stakeholder Update Writer
 
+## 中文简介
+
+**干系人汇报撰写器**：把项目进展、周报、风险、阻塞、决策和下一步整理成清晰的老板/团队/跨部门汇报，适合周报、邮件、Slack 和项目同步。
+
 ## Overview
 
 Use this skill to turn raw project notes into clear stakeholder communication. The update must make status, progress, decisions, risks, asks, and next steps obvious.
