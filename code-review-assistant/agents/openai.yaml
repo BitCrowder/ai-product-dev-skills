@@ -1,0 +1,4 @@
+interface:
+  display_name: "Code Review Assistant"
+  short_description: "Review code for bugs, regressions, and test gaps"
+  default_prompt: "Use $code-review-assistant to review this diff for bugs, risks, regressions, and missing tests."
