@@ -1,0 +1,4 @@
+interface:
+  display_name: "Metric Diagnosis"
+  short_description: "Diagnose funnels, retention, conversion, and anomalies"
+  default_prompt: "Use $metric-diagnosis to analyze why this product metric changed and produce ranked hypotheses with validation steps."
