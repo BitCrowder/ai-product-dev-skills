@@ -1,4 +1,4 @@
 interface:
-  display_name: "Roadmap Prioritizer"
-  short_description: "Rank features with RICE, ICE, Kano, or custom scoring"
-  default_prompt: "Use $roadmap-prioritizer to rank my feature ideas, explain tradeoffs, and create a now/next/later roadmap."
+  display_name: "路线图优先级排序器"
+  short_description: "用 RICE、ICE、Kano 等给需求排序"
+  default_prompt: "Use $roadmap-prioritizer：请根据我的问题生成结构化、可执行的结果。"
