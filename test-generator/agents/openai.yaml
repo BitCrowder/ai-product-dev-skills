@@ -1,4 +1,4 @@
 interface:
-  display_name: "测试生成器"
-  short_description: "生成聚焦行为和回归风险的测试方案"
-  default_prompt: "Use $test-generator：请根据我的问题生成结构化、可执行的结果。"
+  display_name: "风险驱动测试生成器"
+  short_description: "按行为和风险设计可证明的测试与证据"
+  default_prompt: "Use $test-generator：基于行为、风险、现有测试约定和验收，生成测试矩阵、红绿证据、命令结果与剩余缺口。"

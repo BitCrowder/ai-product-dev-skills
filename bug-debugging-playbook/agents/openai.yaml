@@ -1,4 +1,4 @@
 interface:
-  display_name: "系统化 Bug 调试手册"
-  short_description: "系统化复现、定位、修复和验证 Bug"
-  default_prompt: "Use $bug-debugging-playbook：请根据我的问题生成结构化、可执行的结果。"
+  display_name: "Bug 调试证据链手册"
+  short_description: "用复现或观测、单变量实验和回归门禁将异常症状转成可验证根因与最小修复"
+  default_prompt: "Use $bug-debugging-playbook：根据症状、环境、日志和近期变更建立证据链，先确认根因或观测计划，再给出最小修复与回归门禁。"

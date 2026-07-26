@@ -1,4 +1,4 @@
 interface:
-  display_name: "干系人汇报撰写器"
-  short_description: "撰写周报、进展、风险和决策同步"
-  default_prompt: "Use $stakeholder-update-writer：请根据我的问题生成结构化、可执行的结果。"
+  display_name: "干系人状态与风险汇报"
+  short_description: "按事实、影响、风险和决策写可执行同步"
+  default_prompt: "Use $stakeholder-update-writer：基于受众、渠道和事实账本，写一份不粉饰风险的状态更新。"

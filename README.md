@@ -55,10 +55,10 @@
 | `codebase-onboarding` | 代码库入门导航 | 接手陌生仓库、诊断无法启动，或在局部改动前需要按任务建立有证据的入口、数据流和测试地图。 | 仓库路径、目标决定、入口线索、时间/命令权限、README/清单/配置和可用证据。 | 含阅读预算、已知/推测/未知、目录/入口/数据流、命令状态、秘密边界、测试拓扑、风险热区和下一步的入门简报。 | 待处理的 Issue、PRD 或 `spec-to-implementation-plan`。 | `issue-to-pr`、`bug-debugging-playbook`、`test-generator`、`refactor-with-safety`。 |
 | `spec-to-implementation-plan` | 规格转实施计划 | 在编码、估算或交接前，需要把规格转成有证据边界的实施计划，尤其面对迁移、发布或跨团队接口。 | PRD、技术规格、设计说明、仓库证据、验收标准、数据/发布约束和非目标。 | 13 项计划：可实施性门槛、文件职责、consumes/produces 接口、独立任务/依赖、分层测试、迁移、flag/回滚/监控与验证。 | `prd-builder`、`prototype-brief-builder`、`codebase-onboarding`。 | `issue-to-pr`、`test-generator`、`launch-readiness-checklist`。 |
 | `issue-to-pr` | Issue 到 PR 安全交付 | 需要把 Issue、Bug 或需求单推进为范围受控、可复现、可审查的改动，尤其要防止不可复现时伪修复或顺手重构。 | Issue 原文、验收与非目标、复现/日志、仓库与工作区状态、现有测试、发布约束。 | 可执行性卡、工作区保护记录、复现/TDD 账本、验收证据矩阵、独立提交与含风险/回滚的 PR。 | `spec-to-implementation-plan`、`codebase-onboarding`、`bug-debugging-playbook`。 | `test-generator`、`code-review-assistant`、`launch-readiness-checklist`。 |
-| `bug-debugging-playbook` | 系统化 Bug 调试手册 | 遇到崩溃、回归、失败测试或异常行为，需要先证明根因再修复。 | 症状、期望/实际行为、环境、日志、复现步骤、近期变更。 | 复现证据、假设、根因、最小修复、回归验证与剩余风险。 | `issue-to-pr`、`codebase-onboarding`。 | `test-generator`、`code-review-assistant`、`stakeholder-update-writer`。 |
-| `test-generator` | 测试生成器 | 功能、修复或重构需要以行为和风险为中心补足覆盖。 | 需求或代码路径、接口、风险、现有测试约定、复现条件。 | 分层测试用例、fixture/mocks、命令、预期结果与测试缺口。 | `spec-to-implementation-plan`、`issue-to-pr`、`bug-debugging-playbook`。 | `code-review-assistant`、`refactor-with-safety`、`launch-readiness-checklist`。 |
-| `code-review-assistant` | 代码审查助手 | 需要审查 PR、diff 或变更文件，优先发现正确性和回归风险。 | 变更 diff、意图、验收标准、测试结果、相关代码。 | 按严重程度排序的发现、文件/行定位、修复建议与测试缺口。 | `issue-to-pr`、`test-generator`、`bug-debugging-playbook`。 | `refactor-with-safety`、`launch-readiness-checklist`、`stakeholder-update-writer`。 |
-| `refactor-with-safety` | 安全重构助手 | 想改善结构或减少重复，同时保持用户可见行为不变。 | 重构目标、边界、现有行为、测试、非目标、风险点。 | 行为保护计划、小步改动序列、验证证据、回滚策略。 | `codebase-onboarding`、`code-review-assistant`、`test-generator`。 | `test-generator`、`code-review-assistant`、`launch-readiness-checklist`。 |
+| `bug-debugging-playbook` | Bug 调试证据链手册 | 遇到接口错误、崩溃、卡死、回归或间歇故障，需要在改代码前用复现或观测、环境差异和单变量实验确认机制。 | 症状/影响、期望与实际、复现/成功对照、日志/trace、时间线、环境/数据、近期变更和代码库。 | `E-*` 证据链、最小复现或观测增强、环境差异矩阵、`H-*`/`X-*`、根因与缓解决策、最小修复及回归门禁。 | `codebase-onboarding`、`issue-to-pr`。 | `issue-to-pr`、`test-generator`、`code-review-assistant`、`stakeholder-update-writer`。 |
+| `test-generator` | 风险驱动测试生成器 | 新功能、接口、Bug 修复或重构需要用可观察行为和失效风险选择测试层级，防止覆盖率、快照或浅层 mock 掩盖关键缺口。 | 验收/行为、风险、代码与契约、现有测试约定、Bug 复现或修复前版本、执行限制。 | `B-*`/`R-*` 风险矩阵、层级选择、fixture/mock 边界、`RED-*`/`ALT-*`/`GREEN-*`/`T-*` 证据账本和缺口结论。 | `codebase-onboarding`、`spec-to-implementation-plan`、`issue-to-pr`、`bug-debugging-playbook`。 | `code-review-assistant`、`refactor-with-safety`、`launch-readiness-checklist`。 |
+| `code-review-assistant` | 证据驱动代码审查 | 需要审查 PR、完整 diff 或变更，且要以需求/契约、相邻上下文和可复现风险决定是否可合并。 | base/head diff、需求/验收、代码与消费者、测试/CI、数据/权限/并发/兼容约束。 | `F-*` 严重度/置信度/路径行号/触发条件/影响/证据/最小修复，`RC-*` 对照、`GAP-*`、测试缺口与合并结论。 | `issue-to-pr`、`test-generator`、`bug-debugging-playbook`。 | `refactor-with-safety`、`launch-readiness-checklist`、`stakeholder-update-writer`。 |
+| `refactor-with-safety` | 安全重构助手 | 拆大文件、抽取边界、去重或改名时，必须保持用户行为、公共 API/数据/副作用、兼容性和性能可控，并防止新功能混入重构。 | 重构目标/非目标、`B-*` 行为、调用方与测试、`C-*` 契约/依赖、兼容窗口、性能基线、工作区和回滚限制。 | `B-*`/`C-*`/`P-*` 基线、机械/语义/功能分轨、可逆 `S-*`、真实 `E-*` 证据、`GAP-*`、停止与回滚策略。 | `codebase-onboarding`、`code-review-assistant`、`test-generator`、`bug-debugging-playbook`。 | `test-generator`、`code-review-assistant`、`issue-to-pr`、`launch-readiness-checklist`。 |
 
 ### AI 应用评测与质量
 
@@ -66,7 +66,7 @@
 
 | Skill | 中文用途 | 使用背景 | 典型输入 | 核心产出 | 上游 Skill | 下游 Skill |
 |---|---|---|---|---|---|---|
-| `ai-app-eval-builder` | AI 应用评测设计器 | LLM、RAG、Agent 或 AI 功能需要有可测量的质量门槛，而非只凭主观感受。 | AI 系统说明、用户任务、样本/日志、失败成本、模型或提示基线。 | 测试集方案、rubric、评分策略、失败分类、阈值和回归门槛。 | `prd-builder`、`experiment-designer`、生产失败样本。 | `launch-readiness-checklist`、`stakeholder-update-writer`、`experiment-designer`。 |
+| `ai-app-eval-builder` | AI 应用评测设计器 | LLM、RAG、Agent 或 AI 功能需要以离线数据集和线上失败回流建立可测量的质量门槛，而非只凭平均分或主观感受。 | 用户任务/风险、系统与版本、黄金集和脱敏生产失败、成本延迟预算、人工与线上观测约束。 | 版本化数据集、确定性/人工/LLM grader、RAG/Agent 分层评测、切片门禁、发布决定和线上回流计划。 | `prd-builder`、`experiment-designer`、`bug-debugging-playbook`、生产失败样本。 | `launch-readiness-checklist`、`stakeholder-update-writer`、`experiment-designer`。 |
 
 ### 发布、沟通与仓库治理
 
@@ -74,9 +74,9 @@
 
 | Skill | 中文用途 | 使用背景 | 典型输入 | 核心产出 | 上游 Skill | 下游 Skill |
 |---|---|---|---|---|---|---|
-| `launch-readiness-checklist` | 上线就绪检查清单 | 版本、实验、迁移或重大变更准备发布，需要跨职能 go/no-go 判断。 | 发布范围、验收证据、监控、回滚、支持和合规约束。 | 责任清单、阻塞项、风险、上线/回滚计划和 go/no-go 建议。 | `experiment-designer`、`ai-app-eval-builder`、`issue-to-pr`。 | `stakeholder-update-writer`、`metric-diagnosis`、`skill-repo-release-verifier`。 |
-| `stakeholder-update-writer` | 干系人汇报撰写器 | 需要把进展、指标、风险、阻塞和决策同步给管理者或跨职能团队。 | 受众、时间范围、事实、指标、决策、风险、下一步和请求。 | 状态摘要、证据、风险升级、所需决策和带负责人的下一步。 | `launch-readiness-checklist`、`experiment-designer`、`metric-diagnosis`。 | `skill-repo-release-verifier` 或下一轮产品/工程决策。 |
-| `skill-repo-release-verifier` | Skill 仓库发布验证器 | 修改多 Skill 仓库后，需要统一检查本地结构、提交、同步和远端可见性。 | 仓库路径、变更范围、分支、远端、中文覆盖要求。 | 本地验证证据、卫生检查、提交/同步状态和远端文件树核验。 | 已完成的 Skill 改动、README、中文索引和验证记录。 | 无；作为仓库发布关卡。 |
+| `launch-readiness-checklist` | 上线就绪与发布决策 | Web、实验、迁移、AI 或公开发布需要以可复核证据而非口头确认做跨职能 go/no-go，尤其涉及灰度、不可逆数据或高危权限。 | 发布类型/范围、风险、真实测试与监控证据、owner/截止、依赖、flag、迁移/回滚、支持、安全，以及 AI eval/注入/越权/人工兜底。 | 按风险裁剪的 `R-*` 就绪账本、Blocker/例外、flag 灰度、前向兼容回滚、具名 go/no-go 与发布后观察/退出门禁。 | `experiment-designer`、`ai-app-eval-builder`、`issue-to-pr`、`spec-to-implementation-plan`。 | `stakeholder-update-writer`、`metric-diagnosis`、`bug-debugging-playbook`、`skill-repo-release-verifier`。 |
+| `stakeholder-update-writer` | 干系人状态与风险汇报 | 需要把进展、指标、风险、阻塞和决策同步给管理者或跨职能团队，且不能以乐观措辞掩盖不确定性或坏消息。 | 受众/渠道/权限、周期、决策目的、带来源与置信度的事实、里程碑、指标、风险、决策和行动项。 | 规则化 RAG/待确认状态、事实/解释/预测/请求账本、业务/用户影响、风险升级、决策日志和单一 owner/截止行动项。 | `launch-readiness-checklist`、`experiment-designer`、`metric-diagnosis`。 | `skill-repo-release-verifier` 或下一轮产品/工程决策。 |
+| `skill-repo-release-verifier` | Skill 仓库发布验证器 | 多 Skill 仓库发布前，需要用确定性本地检查和实际远端证据阻止目录遗漏、分类重复、范围漂移与“未核验即成功”。 | 仓库路径、base/候选提交、批准文件、`OWNER/REPO`、预期默认分支、中文覆盖要求和权限/网络状态。 | `{path, code, message}` 本地问题、逐 Skill 证据、范围/提交 SHA、push 或 API 结果，以及默认分支/SHA/文件树核验状态。 | 已完成的 Skill 改动、README、中文索引和验证记录。 | 无；作为仓库发布关卡，远端未核验时只报告受阻或未验证。 |
 
 ## 端到端推荐工作流
 

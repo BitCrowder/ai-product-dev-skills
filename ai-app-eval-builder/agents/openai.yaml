@@ -1,4 +1,4 @@
 interface:
   display_name: "AI 应用评测设计器"
-  short_description: "设计 AI 应用评测、数据集和评分标准"
-  default_prompt: "Use $ai-app-eval-builder：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "用版本化数据、分层 grader 和切片门禁评测 AI"
+  default_prompt: "Use $ai-app-eval-builder：基于用户任务、风险、生产失败、系统版本和成本约束，生成可复现的数据集、grader、切片门禁与线上回流计划。"

@@ -1,71 +1,91 @@
-# Launch Readiness Templates
+# 上线就绪交付模板
 
-## Launch Readiness Review
+未知、计划、口头确认和未运行命令不能写成通过。使用真实链接、命令、运行 ID 或明确 `GAP-*`；`<...>` 只表示填写位置。
+
+## 1. 发布卡与风险裁剪
 
 ```markdown
-# Launch Readiness Review: [Release Name]
-
-## Executive Status
-- Recommendation: Go / Go with mitigations / Limited rollout / Delay / No-go
-- Launch date:
-- Scope:
-- Highest risk:
-- Decision owner:
-
-## Launch Context
-| Item | Detail |
-|---|---|
-| Launch type | |
-| Target users | |
-| Rollout plan | |
-| Success metrics | |
-| Dependencies | |
-
-## Readiness Checklist
-| Area | Status | Evidence | Owner | Notes |
-|---|---|---|---|---|
-| Product scope | Ready/At risk/Blocked | | | |
-| Engineering | Ready/At risk/Blocked | | | |
-| QA | Ready/At risk/Blocked | | | |
-| Analytics | Ready/At risk/Blocked | | | |
-| Security/Privacy | Ready/At risk/Blocked | | | |
-| Performance/Reliability | Ready/At risk/Blocked | | | |
-| Support/Ops | Ready/At risk/Blocked | | | |
-| Docs/Comms | Ready/At risk/Blocked | | | |
-| Rollback | Ready/At risk/Blocked | | | |
-
-## Blockers
-| Blocker | Impact | Owner | Required resolution | Due |
-|---|---|---|---|---|
-
-## Launch Risks
-| Risk | Likelihood | Impact | Mitigation | Trigger | Owner |
-|---|---|---|---|---|---|
-
-## Monitoring Plan
-| Signal | Tool/source | Threshold | Action | Owner |
-|---|---|---|---|---|
-
-## Rollback Plan
-- Rollback trigger:
-- Rollback owner:
-- Steps:
-- Customer communication:
-- Data migration considerations:
-
-## Final Decision
-[Decision and conditions]
+# 发布卡：<发布名称>
+- [事实] 发布类型：<hotfix/Web/实验/Beta/公开/迁移/AI>；版本/变更：<链接或 ID>
+- 范围 / 非目标：<可定位说明>
+- 用户、平台、窗口、预计影响：<事实或 GAP-ID>
+- 风险等级：<低/中/高/严重>；依据：<权限/数据/资金/隐私/AI/可逆性/依赖>
+- go/no-go 权限人：<姓名/角色>；例外审批人：<姓名/角色>
+- 裁剪：<不适用领域、理由、批准人；高风险不可裁剪项>
+- [未知]：<GAP-ID；对决定的影响>
 ```
 
-## Release Notes Pattern
+## 2. `R-*` 就绪账本
 
 ```markdown
-## What's New
-- [User-facing change]
+| R-ID | 领域/检查项 | 状态：通过/待验证/风险接受/阻断/不适用 | owner | 截止 | 证据链接或完整命令与结果 | 阻断级别：Blocker/Launch risk/Follow-up | 缺口、下一动作与复核人 |
+|---|---|---|---|---|---|---|---|
+| R-01 | 功能：范围与验收 | 待验证 | <单一角色> | <ISO 时间/事件> | <CI URL、PR、测试命令及真实结果> | Blocker | <最小补充动作> |
+| R-02 | QA：关键路径/回归/平台 |  |  |  |  |  |  |
+| R-03 | 数据迁移：备份、双读写/回填、校验、前向兼容 |  |  |  |  |  |  |
+| R-04 | 文案、发布说明与变更沟通 |  |  |  |  |  |  |
+| R-05 | 埋点、仪表盘、告警与数据质量 |  |  |  |  |  |  |
+| R-06 | 性能、容量、可靠性与依赖降级 |  |  |  |  |  |  |
+| R-07 | 支持、FAQ、培训、值班与升级路径 |  |  |  |  |  |  |
+| R-08 | 隐私、安全、权限、合规与风控 |  |  |  |  |  |  |
+| R-09 | feature flag、目标规则与灰度控制 |  |  |  |  |  |  |
+| R-10 | 回滚、数据兼容与演练 |  |  |  |  |  |  |
+| R-11 | AI（适用时）：内容质量/eval、注入、越权、人工兜底 | 不适用 | <批准人> | <日期> | <裁剪依据> | Blocker | <AI 不在本次范围的原因> |
+```
 
-## Who Gets It
-- [Audience and rollout]
+## 3. AI 发布门禁（适用时）
 
-## What To Watch
-- [Known limitation or support note]
+```markdown
+| AI-ID | 风险/切片 | 真正的证据：E-*/Gate/运行 ID/测试链接 | 通过边界 | owner | 截止 | 失败动作 | 阻断级别 |
+|---|---|---|---|---|---|---|---|
+| AI-01 | 内容质量、事实/引用、拒答 | <真实 E-*/Gate；没有则 GAP-ID> | <不可接受结果与阈值> | <角色> | <时间> | <停流/人工复核/回滚> | Blocker |
+| AI-02 | 提示注入/敏感数据外泄 |  |  |  |  |  |  |
+| AI-03 | 工具权限、危险参数、副作用 |  |  |  |  |  |  |
+| AI-04 | 人工兜底：触发、队列、SLA、权限、用户提示 |  |  |  |  |  |  |
+```
+
+## 4. Blocker、风险与例外
+
+```markdown
+| ID | 未关闭项/影响 | 分类 | owner | 截止 | 证据或 GAP-ID | 缓解/限制范围 | 监控阈值与回滚动作 | 例外审批人/失效期 |
+|---|---|---|---|---|---|---|---|---|
+| B-01 | <具体、可观察的未完成项> | Blocker | <单一角色> | <时间> | <链接/命令/GAP> | <可限制的受众/能力> | <阈值 -> 停流/回滚> | <只在 Conditional go 时填写> |
+```
+
+## 5. feature flag 与分批灰度
+
+```markdown
+| 阶段 | 受众/流量/排除人群 | flag 与默认状态 | 进入条件 | 观察窗口与证据 | 暂停/回滚触发器 | 扩大条件 | 执行 owner |
+|---|---|---|---|---|---|---|---|
+| 0：内部 | <角色> | `<flag>`；off | <R-* / AI-* 门禁> | <时长/仪表盘> | <具体阈值> | <明确条件> | <角色> |
+| 1：灰度 | <百分比/规则> |  |  |  |  |  |  |
+| 2：扩大 | <百分比/规则> |  |  |  |  |  |  |
+| 3：全量 | <全部> |  |  |  |  | <退出条件> |  |
+
+- 关闭命令/操作路径：<真实命令或控制台步骤；权限 owner>。
+- 无 flag 时的停流替代：<部署、路由或访问控制动作；验证方法>。
+```
+
+## 6. 回滚、迁移与演练
+
+```markdown
+| 触发器 ID | 可观测信号/阈值 | 决策 owner | 执行 owner | 验证 owner | 沟通 owner | 截止 | 有序步骤 | 验证证据与预计时间 | 数据前向兼容/补偿 | 演练证据 | 沟通计划/模板 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| RB-01 | <仪表盘/告警；阈值> | <单一权限角色> | <单一执行角色> | <单一验证角色> | <单一沟通角色> | <ISO 时间或明确事件> | 1. 停新流量 2. <代码/配置> 3. <数据补偿> | <查询/测试、真实结果或 GAP；目标时间> | <expand/contract、双读写/恢复边界> | <日期、环境、结果或 GAP> | <受众、渠道和模板链接> |
+```
+
+## 7. go/no-go 与发布后观察
+
+```markdown
+## 决策记录
+- 结论：Go / Conditional go / No-go。
+- 决策权限人：<姓名/角色/时间>；例外审批：<姓名/范围/失效期，若无则写无>。
+- 已证明：<R-*/AI-*/B-*/RB-* 与链接>。
+- 未关闭：<Blocker/GAP；若有 Blocker，必须为 No-go 或 Conditional go>。
+- Conditional go 条件：<限定流量、截至时间、必须完成项、监控、暂停/回滚、复核人>。
+
+## 发布后观察
+| 信号/切片 | 基线与阈值 | 仪表盘/查询 | 观察窗口 | 触发行动 | 值班/支持 owner | 扩大或退出条件 |
+|---|---|---|---|---|---|---|
+| <核心任务/安全/性能/支持/AI 风险> | <真实或 GAP> | <链接/命令> | <时长> | <暂停/回滚/人工接管> | <角色> | <明确条件> |
 ```

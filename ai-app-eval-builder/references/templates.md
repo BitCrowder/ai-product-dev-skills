@@ -1,86 +1,96 @@
-# AI App Eval Templates
+# AI 应用评测交付模板
 
-## Eval Plan
+未知、未运行和失败必须保留。`E-*` 只记录真实运行；不要用计划、样例分数或模型印象替代结果。
+
+## 1. 评测卡、能力与风险
 
 ```markdown
-# Eval Plan: [AI Feature]
+# 评测卡：<系统/发布>
+- 决定：<比较什么；通过后允许什么发布动作>
+- [事实]：<用户任务、日志、版本、政策或测量来源>
+- [推断]：<依据；验证动作>
+- [未知]：<缺失材料；阻断的决定>
+- baseline version：<模型/提示词/代码/检索/工具/环境>
+- candidate version：<模型/提示词/代码/检索/工具/环境>
+- 停止条件：<何时不运行、不发布或不外推>
 
-## Objective
-- AI task:
-- Release decision supported:
-- Baseline:
-- Candidate:
-- Users affected:
-- Failure cost:
-
-## Quality Dimensions
-| Dimension | Definition | Grader | Threshold |
-|---|---|---|---|
-
-## Dataset Schema
-| Field | Type | Required | Description |
-|---|---|---|---|
-| id | string | yes | Stable case ID |
-| input | string/object | yes | User request or task input |
-| context | string/list | no | Source docs, retrieved chunks, or tool state |
-| expected_behavior | string | yes | What a good output must do |
-| reference_answer | string | no | Gold answer when appropriate |
-| rubric | string | yes | Case-specific grading criteria |
-| metadata | object | yes | Slice, difficulty, source, risk |
-
-## Dataset Slices
-| Slice | Purpose | Minimum cases |
-|---|---|---:|
-| Happy path | Normal use | 10 |
-| Edge case | Boundary behavior | 10 |
-| Adversarial | Robustness | 5 |
-| Production failure | Regression | 5 |
-
-## Rubric
-| Score | Meaning | Criteria |
-|---|---|---|
-| 0 | Fail | Unsafe, unsupported, wrong, or unusable |
-| 1 | Partial | Some correct elements but misses key requirement |
-| 2 | Pass | Correct, grounded, complete enough |
-| 3 | Excellent | Correct and especially useful |
-
-## Automated Checks
-| Check | Method | Pass condition |
-|---|---|---|
-
-## Human Review
-| Sample | Reviewer task | Escalation |
-|---|---|---|
-
-## Failure Taxonomy
-| Failure type | Definition | Likely fix |
-|---|---|---|
-
-## Regression Workflow
-1. Freeze dataset version.
-2. Run baseline.
-3. Run candidate.
-4. Compare by slice and failure type.
-5. Block release if thresholds fail.
-6. Review sampled failures.
-7. Record decision and follow-ups.
+| C-ID | 用户能力与成功观察 | R-ID/失败后果 | 风险等级 | 关键切片 | 非目标/不接受结果 |
+|---|---|---|---|---|---|
+| C-01 | <用户完成什么，如何观察> | R-01 / <安全、资金、隐私或体验损害> | <高/中/低> | <角色/语言/任务/权限等> | <不能以何种结果通过> |
 ```
 
-## Example Test Case JSON
+## 2. 数据集、代表性与分层期望
 
-```json
-{
-  "id": "rag-citation-001",
-  "input": "What is our refund window for annual plans?",
-  "context": ["Refunds are available within 14 days for annual plans."],
-  "expected_behavior": "Answer with the 14-day window and cite the provided policy.",
-  "reference_answer": "Annual plans can be refunded within 14 days.",
-  "rubric": "Pass only if the answer states 14 days and does not invent exceptions.",
-  "metadata": {
-    "slice": "happy_path",
-    "difficulty": "easy",
-    "risk": "policy_accuracy",
-    "source": "support_policy"
-  }
-}
+```markdown
+## 数据集版本：<dataset version；冻结日期；owner>
+| D-ID | 类型：黄金/生产失败/困难/对抗 | 输入与前置上下文 | 预期行为或证据 | 切片/难度/风险 | 来源与采样窗口 | 代表性/许可/脱敏 | 近重复簇/泄漏检查 | 纳入或排除理由 |
+|---|---|---|---|---|---|---|---|---|
+| D-01 | 黄金 | <最小化输入> | <参考或行为> | <slice> | <来源/日期> | <覆盖/隐私> | <方法、阈值、结果> | <理由> |
+
+## 覆盖与缺口
+| 切片 | 真实分布或代理证据 | 当前 D-* 数 | 黄金/失败/困难/对抗比例 | 风险权重 | 代表性限制与 GAP-ID | 下轮补样 owner |
+|---|---|---:|---|---|---|---|
+
+## RAG 分层（适用时）
+| D-ID | query | 必要证据/文档族 | 检索候选与排序期望 | 回答/引用/无证据期望 | 检索与答案分别评分的原因 |
+|---|---|---|---|---|---|
+
+## Agent 轨迹（适用时）
+| D-ID | 初始状态 | 允许工具/权限 | 期望工具选择与参数 | 禁止工具/参数/副作用 | 最大步数/循环条件 | 成功终态/补偿 |
+|---|---|---|---|---|---|---|
+```
+
+## 3. Grader、rubric 与校准
+
+```markdown
+## Grader 与可复现 rubric
+| G-ID | 维度/关联 C/R/D | 方法：确定性/人工/LLM judge | 输入证据与规则版本 | 评分等级、通过边界与 Failure-* | 正例/反例 | 不适用/升级规则 |
+|---|---|---|---|---|---|---|
+| G-01 | R-01/D-01 | 确定性 | <schema/工具/权限/引用 ID>；v<版本> | <pass/fail；Failure-RAG-CITATION-UNSUPPORTED> | <各一例> | <何时人工复核> |
+
+## 人工校准
+| CAL-ID | 冻结样本/版本 | 盲评 reviewer | rubric version | 一致率/分歧 | 裁决与改动 | 何时复训/重校准 |
+|---|---|---|---|---|---|---|
+
+## LLM-as-judge 校准与偏差控制
+| J-ID | judge model/prompt/参数/schema version | 人工金标与样本 | 顺序/位置随机反转 | 匿名与自偏隔离 | 长度控制 | 与人工偏差/反转一致性 | 允许用途/阻断条件 |
+|---|---|---|---|---|---|---|---|
+```
+
+## 4. Failure-* 失败分类与处置
+
+稳定代码使用 `Failure-<DOMAIN>-<CAUSE>`，跨版本不改义、不复用。每个 `G-*` fail label 和每条失败 `E-*` 必须回链本表。
+
+```markdown
+| Failure-ID/稳定失败代码 | 定义与纳入/排除边界 | 层：RAG/Agent/其他 | 受影响切片 | 频率/严重性 | 可能修复/责任 owner | 关联生产样本 D-* | 回归 case D-* | 关联 G-*/E-* |
+|---|---|---|---|---|---|---|---|---|
+| Failure-RAG-CITATION-UNSUPPORTED | <关键主张的引用不支持该主张；排除纯格式缺失> | RAG 答案/引用 | <政策/语言/新鲜度> | <n/N、率；高/中/低> | <检索/提示/引用逻辑；角色> | <脱敏生产失败 D-ID 或 GAP-ID> | <冻结回归 D-ID> | <G-ID；E-ID/case/trace> |
+```
+
+## 5. 运行、切片门禁与发布
+
+```markdown
+## 真实运行证据
+| E-ID | baseline/candidate/dataset/grader 版本 | 工作目录/配置/seed | 完整命令或运行 ID | 时间 | 样本/切片 | G-* 结果/Failure-* 回链 | 成本与 p50/p95/p99 延迟 | 超时/重试/稳定性 | 结果与限制 |
+|---|---|---|---|---|---|---|---|---|---|
+
+## 回归门槛（平均仅作摘要）
+| 门禁 ID | 范围：硬约束/关键切片/总体 | 指标与 G-ID | baseline | candidate | 样本/置信限制 | 允许回归/预算 | 失败动作与 owner |
+|---|---|---|---|---|---|---|---|
+| Gate-01 | 硬约束：R-01 | <权限/安全/引用等> | <真实值> | <真实值> | <n/限制> | <0 次或明确值> | <阻断/owner> |
+
+## 发布与线上回流
+- 结论：通过 / 有条件通过 / 不通过。
+- 已证明：<C/R/D/G/Failure/E/Gate-ID>；未证明：<GAP-ID、失败或未运行>。
+- 灰度、监控和回滚：<流量、告警、暂停/回滚阈值、owner>。
+- 回流窗口：<时间、事件/trace/反馈、隐私规则、去重/标注/审核 owner>。
+- 下轮：<候选 D-* 如何冻结为 dataset version；何时重跑 baseline/candidate>。
+```
+
+## 6. 缺口台账
+
+```markdown
+| GAP-ID | 缺失数据/版本/校准/运行/隐私证据 | 影响的能力、切片或发布决定 | 风险 | 最小补充动作 | owner | 到期或重跑条件 |
+|---|---|---|---|---|---|---|
+| GAP-01 | <具体缺口> | <C/R/Gate-ID> | <影响> | <可执行动作> | <角色> | <日期/事件> |
 ```
