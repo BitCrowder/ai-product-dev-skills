@@ -1,11 +1,26 @@
-# Metric Diagnosis Checklist
+# 产品指标诊断检查清单
 
-- Metric formula is explicit.
-- Baseline and current windows are comparable.
-- Instrumentation quality is checked.
-- Segments are inspected before conclusions.
-- Hypotheses are ranked, not listed randomly.
-- Each hypothesis has a validation method.
-- Recommendations distinguish reversible fixes from experiments.
-- The output states what remains unknown.
-- No causal claim is made without supporting evidence.
+## 口径与数据质量
+
+- 已写明业务含义、公式、分子、分母、分析单位、去重键、事件时间、时区、归因、纳入/排除和数据截至时间；未知项标为 `[未知]`。
+- 当前与基线使用同一口径、筛选器、SQL/埋点版本、数据成熟度和可比日历；否则已暂停比较。
+- 已检查事件覆盖、重复、空值、join 匹配、分区/到达延迟、回填、采样、机器人/内部流量、资格与曝光规则。
+- 当前窗口不比基线更“新”；若存在迟到事件或回填，已比较同龄数据或说明等待条件。
+- 截图读数、仪表盘定义、原始导出和推断分开记录；没有口径的截图未被当作可归因事实。
+
+## 变化与分解
+
+- 已同时报告两期分子/分母、绝对人数差、百分点差和相对变化；“下降 15%”没有遗漏其含义。
+- 已检查分母扩大、渠道/流量构成、资格规则、去重和曝光变化；固定分群结果没有被总体均值覆盖。
+- 已按机制选择分群，报告每群分子/分母、覆盖、贡献、样本限制和反例；小样本没有被夸大。
+- 漏斗每一步的入口资格、去重、观察窗口和上一环分母变化均已说明；留存已固定 cohort 与观察期。
+- 已使用可比的星期、季节、活动和数据成熟度基线；季节性/日历差异未被误写成业务异常。
+- 变点日期、粒度、持续时间和不确定性已记录；发布/实验/事故日志包含实际暴露时间、范围和回滚。
+
+## 假设、因果与交付
+
+- 假设覆盖数据、分母/流量、季节性、产品/发布、性能、价格/信息和外部因素；每项均有支持/削弱预测与混杂因素。
+- 优先级基于决策影响、证据、可区分性、验证成本/时效和可逆性，未伪造概率或把易查当成最可能。
+- 每个验证查询明确字段、去重、过滤、分组、窗口、预期信号和停止条件；未知 schema 没有编造表名或结果。
+- 相关、时间先后和发布邻近只写作关联；因果结论有处理定义、对照/反事实、干预前趋势、混杂检查和剩余限制，或明确不作因果判断。
+- 输出明确区分修数据、风险缓解、继续观察、分析验证和实验；列出负责人、截止时间、可支持的决定和不能断言的范围。

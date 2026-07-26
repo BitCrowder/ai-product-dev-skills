@@ -1,80 +1,89 @@
-# Motion Spec Templates
+# 动效契约模板
 
-## Full Motion Spec
+## 完整动效契约
 
 ```markdown
-# Motion Spec: [Component or Flow]
+# [流程/组件] 动效契约
 
-## Intent
-- User moment:
-- What the motion communicates:
-- Primary pattern:
-- Secondary pattern:
-- Should not feel:
+## 动效意图卡
+- 用户任务与高频程度：
+- 要传达的目的：反馈 / 连续性 / 层级 / 进度 / 状态变化
+- 空间关系：同级 / 进入下级 / 返回 / 覆盖层 / 直接操控
+- 明确非目标：
+- 平台、技术栈、设备档位与性能预算：
+- [待确认]、影响与补齐动作：
 
-## Trigger
-| Trigger | User/system action | Frequency | Interruptible? |
-|---|---|---:|---|
+## 状态转换
+| 动效 ID | 当前状态 | 事件与守卫 | 目标状态 | 进入/退出方向 | 取消事件 | 当前值续接或稳定点 | 过期回调保护 | 可见反馈 |
+|---|---|---|---|---|---|---|---|---|
+| M-... | idle/pending/dragging/... | [事件/条件] | [状态] | [关系] | [路由、重复输入、pointercancel 等] | [规则] | [transition/request id] | [文案、图标、焦点或读屏] |
 
-## Animation Objects
-| Object | Starting state | Ending state | Notes |
-|---|---|---|---|
+## 参数与预算
+| 动效 ID | 对象/属性 | 起止值、距离与目标值 | 时长/延迟/并发 | easing 或 spring | 循环/停止条件 | 避免的属性 |
+|---|---|---|---|---|---|---|
+| M-... | [transform/opacity] | [0 -> 1, 8px；目标 0px] | [180ms, 32ms, <= 8] | [cubic-bezier(...)] | [无或何时停止] | [layout/filter 等] |
 
-## Timing
-| Object | Duration | Delay/stagger | Easing/spring | Repeat |
-|---|---:|---:|---|---|
+### 弹簧契约（仅当 `type: spring`）
 
-## Behavior Details
-- Entrance:
-- Exit:
-- Press or gesture feedback:
-- State transition:
-- Scroll or navigation relationship:
-- Interruption behavior:
-- Reduced-motion fallback:
+| 动效 ID | 目标运行时/库/API | 求解器语义 | stiffness/damping/mass 的 API 语义或单位 | 初速度（实际数值+单位） | 目标值 | restDelta | restSpeed | 最大 settle 时间 | 跨平台映射/重新调参规则 |
+|---|---|---|---|---|---|---|---|---|---|
+| M-... | [例如 Motion `animate(..., { type: "spring" })`] | [该库数值 spring；不是物理 SI 承诺] | [库配置数值；按目标 API 文档解释] | [例如 `-1200px/s`] | [例如 `360px`] | [例如 `0.5px`] | [例如 `5px/s`] | [例如 `420ms`] | [目标 API 字段映射；按目标/settle/overshoot 重新调参] |
 
-## Implementation Notes
-- Recommended approach:
-- Properties to animate:
-- Properties to avoid:
-- Library/API:
-- Performance considerations:
+不允许把一个运行时的 `stiffness`、`damping`、`mass` 直接复制到另一个运行时。若目标 API 使用 `dampingRatio`、响应时长或速度向量，写明映射和待验证值；没有可验证映射时标为 `[待确认]`，不伪造字段。
 
-## Acceptance Criteria
-- [ ] Motion starts from the user or system trigger.
-- [ ] Motion explains what changed.
-- [ ] Motion does not block frequent tasks.
-- [ ] Layout does not jump.
-- [ ] Reduced-motion users get a non-motion fallback.
-- [ ] Mobile and desktop behavior are checked where relevant.
+## 三档行为
+| 档位 | 触发条件 | 动效行为 | 等价反馈 | 实现开关/降级验证 |
+|---|---|---|---|---|
+| 完整 | [条件] | [完整参数] | [文本/图标/焦点] | [token 或媒体查询] |
+| 减少动态 | `prefers-reduced-motion: reduce` | [即时或 <= 100ms opacity] | [同一状态信息] | [测试方式] |
+| 低端降级 | [设备/帧/列表条件] | [移除的效果与保留效果] | [同一状态信息] | [性能信号与测试方式] |
+
+### 性能降级协议（产品基线/待验证）
+
+| 项目 | 必填规则 |
+|---|---|
+| 采样源 | [交互作用域 rAF 时间戳，或具体平台帧指标；不得写“观察卡顿”] |
+| 采样窗口与阈值 | [例如最近 12 帧中 >= 3 帧 > 20ms；标为产品基线/待验证，不是通用真理] |
+| 切换时机 | [例如降级只在 transition 完成、稳定 snap point 或下一次交互前提交；不在 dragging 中跳档] |
+| 恢复生命周期 | [例如 `full -> pending-low -> low-cooling -> low-sampling -> restore-pending -> full`；选择低频探针或跨后续交互累计之一，不能混写] |
+| 低频探针与无交互 | [例如 low 后、可见前台每 250ms 调度连续两个 rAF，只记录 rAF 对间隔；无交互仍持续采样] |
+| 恢复条件与冷却期 | [例如累计前台可见冷却 5s 后，2 个连续 60 样本窗口均无 >20ms 帧才 `restore-pending`] |
+| 隐藏/后台暂停与清理 | [document hidden/app background：取消 timeout/rAF/平台采样器，停止冷却计时并重置恢复窗口；foreground 后重新开始] |
+| 防抖与稳定状态 | [long frame 重启冷却；`restore-pending` 只在 idle/transition 完成/稳定 snap point 提交 full；不在 dragging/settling 中跳档] |
+| 确定性测试 | [假时钟和可控 rAF：5s 前台时间 + 120 干净样本 -> restore-pending -> 稳定边界 full；hidden 重置窗口] |
+
+## 实现边界
+- 推荐 API 与现有约定（弹簧要填目标运行时/库/API 和求解器语义）：
+- 状态机、控制器、计时器/rAF/监听器的取消和清理：
+- 手势范围、snap point、速度单位、冲突优先级与 pointercancel：
+- 不修改的业务逻辑、路由和数据规则：
+- 测试钩子/transition id：
+
+## 验收
+- [ ] 动效可说清传达的目的和空间关系。
+- [ ] 所有时长、距离、延迟、easing 或完整弹簧参数都有数值和单位；弹簧填写 API、求解器、目标、实际初速度、rest 阈值和最大 settle 时间。
+- [ ] 快速重复输入、导航/卸载、数据替换和取消不会让旧状态回写。
+- [ ] 减少动态和低端档保留等价状态、任务和恢复反馈。
+- [ ] 列表、布局、焦点、键盘/读屏和性能预算按目标平台验证。
+- [ ] 性能协议记录采样源、窗口、产品基线/待验证阈值、稳定切档、低频恢复生命周期、无交互采样、隐藏/后台暂停与清理、恢复冷却期和防抖。
+- [ ] 用假时钟和可控 rAF/平台帧样本确定性测试 `low -> restore-pending -> full`，并验证 hidden/background 取消探针和重置窗口。
 ```
 
-## VibeCoding Prompt Template
+## 编程代理提示语
 
 ```text
-请为【组件/页面】添加【动效模式】微动效，目标是【用户感知/产品意图】。
+Use $microinteraction-motion-designer 为 [组件/流程] 实现已确认的 M-* 动效契约。
 
-请只修改与动效相关的代码，不要重写页面结构和业务逻辑。
+只改动列出的组件和动效状态；不要添加全页动画、改变业务规则或引入不必要的动画库。
+实现完整/减少动态/低端三档，优先 transform 和 opacity。对每个 M-* 保留当前状态、事件、守卫、目标状态、取消事件、资源清理和 transition/request id，防止旧动画完成后覆盖最新状态。
 
-动效规格：
-1. 触发条件：【点击/加载/滚动/拖拽/状态变化/页面进入】
-2. 动效对象：【按钮/列表项/Tab 指示条/卡片/图表/页面容器】
-3. 起始状态：【opacity/transform/scale/position/color】
-4. 结束状态：【opacity/transform/scale/position/color】
-5. 时长：【例如 180ms / 240ms / 600ms】
-6. 缓动：【ease-out / ease-in-out / spring with damping】
-7. 延迟或依次出现：【例如每项延迟 50ms】
-8. 中断行为：【用户快速切换时取消上一段动画并进入新状态】
-9. 无障碍：【尊重 prefers-reduced-motion，减少或关闭位移动画】
-10. 验收标准：【没有文字重叠、没有布局跳动、移动端自然】
-
-完成后请说明改了哪些文件、使用了哪些动效参数、如何验证。
+验收：核对参数、快速连续操作、pointercancel/导航取消、prefers-reduced-motion、低端降级、焦点/读屏和无布局跳动；说明修改文件、参数、降级条件和验证结果。
 ```
 
-## Motion Audit Template
+## 动效审查模板
 
 ```markdown
-| UI moment | Current issue | Recommended pattern | Spec summary | Priority |
-|---|---|---|---|---|
-| Button tap | No feedback | Press ripple or pressed scale | 180ms scale 0.98 then restore | High |
+| 瞬间 | 目的/层级 | 当前问题 | 推荐 M-* | 参数缺口 | 中断/降级风险 | 验收优先级 |
+|---|---|---|---|---|---|---|
+| [交互] | [关系] | [观察] | [模式] | [缺少的值] | [状态/性能风险] | High/Medium/Low |
 ```

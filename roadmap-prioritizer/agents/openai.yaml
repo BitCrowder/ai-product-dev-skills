@@ -1,4 +1,4 @@
 interface:
   display_name: "路线图优先级排序器"
-  short_description: "用 RICE、ICE、Kano 等给需求排序"
-  default_prompt: "Use $roadmap-prioritizer：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "基于证据、角色容量、依赖与战略约束做透明路线图取舍"
+  default_prompt: "Use $roadmap-prioritizer：请为以下候选项选择合适的优先级模型，公开证据、尺度、容量、依赖和战略约束，并区分评分、推荐与最终决定。"

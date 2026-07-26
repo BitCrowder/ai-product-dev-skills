@@ -1,30 +1,105 @@
-# PRD Builder Examples
+# PRD 生成器示例
 
-## Invocation
+## 场景一：一句话 AI 产品想法
 
-```text
-Use $prd-builder to create a PRD for an AI meeting-notes feature that turns Zoom transcripts into action items for startup teams.
-```
+输入：`做一个 AI 会议总结，帮助团队减少会后整理时间。`
 
-## Lightweight Output Skeleton
+合格处理：
 
 ```markdown
-# PRD: AI Meeting Action Items
+## 问题假设卡
+- 想法：AI 会议总结。
+- [假设] 候选用户、情境与 JTBD：需要将会议决定和待办交接给他人的团队成员，在会后整理时希望让信息可确认、可执行。
+- [待确认] 哪些分群、会议类型、当前替代工具、整理频率、遗漏成本和现有基线均未提供。
+- 最小可验证结果：目标分群能查看一份候选总结并确认或修正决定、待办和责任人。
+- 推荐 MVP：导入一类已授权会议文本；生成候选决定/待办；用户确认或编辑；保存确认结果；记录查看、修改和保存事件。
+- 后续候选：多会议平台接入、自动分发、跨会议搜索、复杂权限、模板市场。
+- 非目标：在缺少证据时承诺节省时间、替代会议或自动代表用户做最终决定。
+- 下一步：访谈最近一次会后交接流程，并核对现有会议文本质量；通过条件是获得可定位的重复整理或遗漏证据，停止条件是现有流程低成本可靠且主要问题不在整理。
+```
 
-## Executive Summary
-Startup teams lose follow-through after meetings because decisions and owners are buried in transcripts. Build a v1 that extracts action items, owners, and due dates from uploaded transcripts, then lets users confirm before saving.
+结论边界：不虚构“团队每周浪费多少时间”、用户画像或转化目标；这是条件草案，不是工程承诺。
 
-## Known Facts
-- Users have meeting transcripts.
-- Desired outcome is clearer follow-through.
+## 场景二：会议纪要转 PRD
 
-## Assumptions
-- Users trust AI only after review.
-- Transcript quality varies by meeting tool.
+输入：`会议纪要：销售负责人说客户常忘记跟进；运营说先支持 CSV 导入；工程说第三方 CRM API 可能两周后才能给；负责人决定本季度先让现有客户试用。请写 PRD。`
 
-## Core Requirements
-| ID | Requirement | Priority | Acceptance Criteria |
-|---|---|---|---|
-| FR-1 | The user can upload a transcript file. | Must | Given a `.txt` transcript, when uploaded, then the system parses it and shows extraction status. |
-| FR-2 | The system suggests action items with owner and due date. | Must | Given a parsed transcript, when extraction completes, then each suggestion includes task text and confidence. |
+合格处理：
+
+```markdown
+## 证据与假设账本
+| 判断或输入 | 标签 | 来源、记录位置与日期 | 强弱及限制 | 对本 PRD 的影响 | 下一步 |
+|---|---|---|---|---|---|
+| 客户常忘记跟进 | `[推断]` | 销售负责人会议发言 | 弱：没有客户、情境、频率或记录 | 作为候选问题，不能锁定需求 | 收集 CRM 记录或访谈近期跟进流程。 |
+| 先支持 CSV 导入 | `[假设]` | 运营提议 | 中：可能降低接入门槛，尚未证明核心路径 | 作为 MVP 方案候选 | 确认现有客户的数据格式与隐私限制。 |
+| CRM API 两周后才能给 | `[待确认]` | 工程会议记录中的当前评估（日期、记录位置和工程负责人待补） | 中：仅为当前预估；外部 API 可用性、依赖 owner 和承诺日期未确认 | API 不进入首版依赖 | 由工程负责人确认可用性、owner 和日期后更新依赖台账。 |
+| 本季度现有客户试用 | `[事实]` | 负责人明确决定 | 中：需补试用客户、成功阈值和支持方案 | 限定试用范围 | 决策人补充名单和 go/no-go 条件。 |
+
+## 范围边界
+| 候选项 | 分类 | 理由 |
+|---|---|---|
+| 现有客户的 CSV 导入与人工确认跟进建议 | MVP | 支持试用决策，且不等待 CRM API。 |
+| CRM API 同步 | 后续候选 | 外部依赖未就绪，首轮可先验证导入后的核心流程。 |
+| 面向新客户的自助开通 | 非目标 | 本季度决定仅覆盖现有客户试用。 |
+```
+
+结论边界：会议纪要不足以证明“忘记跟进”是普遍或首要问题；PRD 应把它列为需验证的候选问题。
+
+## 场景三：要求把所有想法放进 MVP
+
+输入：`MVP 必须同时支持网页、iOS、Android、十种数据源、团队权限、自动化、报表、API、国际化和企业 SSO，不能删。`
+
+合格处理：
+
+```markdown
+不能把所有候选项称为 MVP，因为没有给出核心用户结果、容量、依赖或验证目标。
+
+推荐先确认：首个用户是谁，要完成什么 JTBD，哪一种入口能验证结果，团队容量和必须遵守的安全/合规限制是什么。
+
+初始切分（条件草案）：
+- MVP：一个目标分群、一个平台、一个已确认数据源、核心任务路径、最低限度的访问控制、主路径与错误处理、必要埋点。
+- 后续候选：其余平台/数据源、自动化、报表、公开 API、国际化和企业 SSO；分别在首轮核心结果与目标客户要求得到证据后重审。
+- 非目标：在首轮验证前承诺全平台覆盖、十种集成或复杂企业能力。
+
+范围决策：产品负责人需在 [待确认] 的容量与合规要求明确后，批准保留/延后项；未确认前不生成工程排期。
+```
+
+结论边界：保留全部愿望清单，但明确拒绝无边界 MVP；没有决策人确认的取舍不能伪装成已定范围。
+
+## 压缩合格输出骨架
+
+```markdown
+# PRD：现有客户跟进建议试用
+
+## 问题与证据边界
+当现有客户在 CSV 中整理潜在跟进项时，可能遗漏下一步；该问题目前仅来自销售负责人的会议发言 `[推断]`，需以客户记录或访谈验证。
+
+## MVP 与非目标
+MVP：CSV 导入、候选跟进项人工确认、保存和必要事件记录。
+后续候选：CRM API 同步。
+非目标：新客户自助开通；本季度仅面向现有客户试用。
+
+## 核心需求
+| ID | 需求 | 状态 ID | 埋点 ID | 验收 ID |
+|---|---|---|---|---|
+| FR-1 | 已授权试用用户可上传合规 CSV。 | ST-1 | EV-1 | AC-1 |
+| FR-2 | 用户可确认、编辑或忽略候选跟进项。 | ST-2 | EV-2 | AC-2 |
+
+## 状态覆盖
+| 状态 ID | 关联需求 ID | 默认 | 空 | 加载 | 错误与恢复 | 权限/资格 | 成功/完成 |
+|---|---|---|---|---|---|---|---|
+| ST-1 | FR-1 | 显示上传入口与格式要求 | 无可用 CSV 时保持上传入口 | 上传和校验中显示进度 | 格式错误说明原因并允许重试 | 无试用资格时不显示上传入口 | 校验成功后显示候选项 |
+| ST-2 | FR-2 | 显示候选项和编辑操作 | 无候选项时说明没有可确认内容 | 保存中禁用重复提交并显示进度 | 保存失败保留编辑内容并允许重试 | 无编辑资格时仅可查看 | 保存后显示已确认结果 |
+
+## 埋点与数据验证
+| 埋点 ID | 关联需求 ID | 事件 | 触发时机 | 必要属性 | 验证方法 |
+|---|---|---|---|---|---|
+| EV-1 | FR-1 | `csv_upload_validated` | CSV 完成校验 | `result`、`error_code`、`trial_customer_id` | 用测试 CSV 验证成功和格式错误各产生一条事件。 |
+| EV-2 | FR-2 | `follow_up_saved` | 用户保存确认结果 | `result`、`edited_count`、`trial_customer_id` | 用确认、编辑和忽略组合验证保存结果属性。 |
+
+## 验收标准
+| ID | 覆盖需求 | Given | When | Then | 可观测证据 |
+|---|---|---|---|---|---|
+| AC-1 | FR-1 | 已授权试用用户拥有合规 CSV | 上传完成 | 显示可确认候选项；格式错误可重试；无权限不显示入口 | 页面状态、上传结果和 EV-1 事件。 |
+| AC-2 | FR-2 | 候选项已生成且用户有编辑资格 | 保存选择 | 仅保存确认内容；失败保留编辑内容；无编辑资格仅可查看 | 保存记录、页面状态和 EV-2 事件。 |
 ```

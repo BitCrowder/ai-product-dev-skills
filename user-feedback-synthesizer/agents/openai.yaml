@@ -1,4 +1,4 @@
 interface:
   display_name: "用户反馈综合器"
-  short_description: "把用户反馈聚类成主题、痛点和机会"
-  default_prompt: "Use $user-feedback-synthesizer：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "将用户反馈转为可追溯主题、分群证据、反例与待验证机会"
+  default_prompt: "Use $user-feedback-synthesizer：综合这些反馈，保留去重、分群、证据、反例和验证边界。"

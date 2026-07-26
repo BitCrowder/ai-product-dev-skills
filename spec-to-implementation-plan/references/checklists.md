@@ -1,10 +1,38 @@
-# Implementation Plan Checklist
+# 规格转实施计划检查清单
 
-- The goal and non-goals are explicit.
-- Open questions are not hidden.
-- Tasks are independently reviewable.
-- Files or modules are named when known.
-- Interfaces between tasks are described.
-- Tests match risk level.
-- Verification commands or manual checks are included.
-- Rollout and rollback are considered for user-facing changes.
+## 准备度与证据
+
+- [ ] 计划卡写明决定、目标用户/结果、范围、非目标、环境和约束。
+- [ ] 目标、验收、技术落点、数据/权限、发布/运行门槛均标记为通过、条件通过或阻塞。
+- [ ] 每条 `[已知]` 结论可回链到用户材料、已读路径/符号、schema 或命令记录；推测和未知没有伪装成事实。
+- [ ] 未读仓库时没有精确路径、既有职责或测试命令断言；只给候选职责、搜索线索、阅读顺序和停止条件。
+
+## 文件、接口与任务
+
+- [ ] 每个文件条目都有责任、证据状态、改动类型和主责任任务；用户给出的路径没有被自动当作正确修改点。
+- [ ] 每个跨边界 `I-*` 都有类型、契约定义 owner、运行时角色、触发、consumes、produces、失败/权限/幂等、兼容和契约测试判断。
+- [ ] 事件数据 schema、运行时 producer/sink 与调用 capability 使用不同 `I-*`：schema 有定义 owner，capability 有 provider/consumer 并 consumes schema；没有用一个 ID 混代三种语义。
+- [ ] 每个 `T-*` 都有一个独立可审查结果、consumes、produces、依赖、验收和最小测试；schema 任务 produces schema，capability 任务 consumes schema 并 produces capability，调用方任务只消费两者并在运行时产生数据。
+- [ ] 共享职责的主责任和合并顺序明确；依赖图说明可并行项、串行原因和集成检查点。
+- [ ] 依赖图给出可执行的拓扑合并顺序；后续任务只消费已验收产出，不回头修改前置任务职责。契约变更已拆成新的修订任务。
+
+## 测试、数据与发布
+
+- [ ] 每个验收至少映射到一个合适的单元、组件、集成、契约、端到端或人工验证层级，并说明环境/fixture 和失败信号。
+- [ ] 影响数据、事件、API 或异步消费者时，迁移、兼容、回填、幂等和恢复边界已有方案或待确认 owner。
+- [ ] feature flag 说明为何适用或不适用；适用时包含默认、受众、扩大/停止条件和 owner。
+- [ ] 监控、告警、回滚和不可逆副作用的恢复边界可观察、可执行，不是“关注上线”。
+- [ ] 验证命令写明工作目录、前提、期望观察和状态；未运行命令没有被描述为通过。
+
+## 交付
+
+- [ ] 模板 13 项均已填写、标为未知或说明不适用；没有用空白掩盖阻塞项。
+- [ ] 实施者可从首个任务开始，审查者可从任务产出、接口、验收和验证检查完成。
+- [ ] 已用 `examples.md` 中相近场景检查：完整 PRD、模糊需求或无仓库证据索要精确路径。
+
+## 最终判定与执行准入
+
+- [ ] **通过：** 所有可实施性门槛、接口/任务边界、测试、数据/发布决策和验证前提均已满足；可按依赖图进入执行。
+- [ ] **有条件通过：** 仅剩不会改变首个任务范围、已验收接口、数据/权限、发布或验收的具名条件；每项都有 owner、最晚时点和停止条件。条件未关闭前，不得启动其受影响消费者。
+- [ ] **不通过：** 任一阻塞项会改变范围、接口、数据/权限、发布、验收或首个任务的可执行性；只能执行澄清/探索任务，不得开始实现。
+- [ ] 已记录最终判定、阻塞项、进入执行条件和首个可开始的 `T-*`；没有用“有条件通过”掩盖阻塞项。

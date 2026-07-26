@@ -1,60 +1,76 @@
-# Competitive Research Templates
+# 竞品调研模板
 
-## Research Brief
+## 研究简报
 
 ```markdown
-# Competitive Research Brief: [Category/Product]
+# 竞品调研简报：[研究主题]
 
-## Research Question
-[What decision should this research support?]
+## 研究卡
+- 决策问题：
+- 目标用户与工作流：
+- 地区/平台：
+- 研究截至日或历史时间窗：
+- 统一口径：币种与税费、团队规模、套餐、计费周期、能力定义。
+- 纳入标准：
+- 排除标准：
+- 证据边界：可访问来源、未覆盖来源和浏览限制。
 
-## Scope
-- Target user:
-- Geography/platform:
-- Included competitors:
-- Excluded competitors:
-- Date checked:
+## 执行摘要
+- [事实]：
+- [推断]：仅在本研究范围内成立的判断。
+- [未知]：会改变决定的关键缺口。
+- 建议：证据支持的动作与待验证动作分开写。
 
-## Executive Summary
-- Main finding:
-- Best-positioned competitor:
-- Most relevant gap:
-- Recommended direction:
-
-## Competitor Matrix
-| Competitor | Target user | Core promise | Key features | Pricing | Strength | Weakness | Source | Confidence |
+## 来源台账
+| 编号 | 层级 | 来源与链接 | 发布/更新日期 | 采集日期 | 适用地区/套餐 | 支持的陈述 | 原文摘录 | 限制 |
 |---|---|---|---|---|---|---|---|---|
 
-## Feature Coverage
-| Capability | Us | Competitor A | Competitor B | Competitor C | Notes |
+## 陈述台账
+| 编号 | 类型 | 陈述 | 来源编号 | 日期状态 | 置信度 | 适用范围/限制 |
+|---|---|---|---|---|---|---|
+| C1 | 事实 |  | S1 |  | 高/中/低 |  |
+| C2 | 假设 |  | 不适用 | 待验证 | 不适用 |  |
+| C3 | 推断 |  | S1、S2 |  | 中 |  |
+| C4 | 未知 |  | 无合格来源 | 不适用 | 不适用 |  |
+| C5 | 未知（待核验线索） | 仅由 C 类来源提出的主张 | S9（C 类） | 待 A/B 类核验 | 不适用 | 不进入事实、矩阵、排序或机会判断 |
+
+## 证据分级竞品矩阵
+| 维度与能力定义 | 统一口径 | 竞品 A | 竞品 B | 竞品 C | 比较结论 | 置信度/限制 |
+|---|---|---|---|---|---|---|
+| 目标用户 |  |  |  |  |  |  |
+| 核心工作流 |  |  |  |  |  |  |
+| 可观察能力 1 | 支持/部分支持/不支持/未知/不适用；来源编号 |  |  |  |  |  |
+| 价格与套餐 | 相同地区、币种、税费、席位、周期 |  |  |  | 仅在同口径时比较 |  |
+| 集成/合规 | 具体版本或计划 |  |  |  |  |  |
+| 体验或评论主题 | 来源类型、样本、时间窗、用户群 |  |  |  |  |  |
+
+## 定位地图
+| 轴 | 操作化定义 | 可比较竞品及证据 | 不可比较或未知项 | 可得结论 |
+|---|---|---|---|---|
+| 横轴 |  |  |  |  |
+| 纵轴 |  |  |  |  |
+
+## 机会与风险
+| 类型 | 陈述 | 证据链 | 结论状态 | 置信度 | 下一步验证/通过标准 |
 |---|---|---|---|---|---|
+| 机会 |  | 目标用户问题 + 竞品覆盖 + 可测试价值主张 | 证据支持/待验证 |  |  |
+| 风险 |  |  | 证据支持/待验证 |  |  |
 
-## Positioning Map
-| Axis | Low end | High end | Where competitors sit | Opening |
-|---|---|---|---|---|
-
-## Review Themes
-| Theme | Positive/Negative | Evidence | Competitors affected | Product implication |
-|---|---|---|---|---|
-
-## Opportunities
-| Opportunity | Evidence | Why now | Difficulty | Confidence |
-|---|---|---|---|---|
-
-## Risks
-| Risk | Evidence | Impact | Mitigation |
-|---|---|---|---|
-
-## Recommendation
-- Build:
-- Avoid:
-- Validate next:
+## 决策建议
+- 可以现在做：只列有证据支持且范围明确的动作。
+- 不能据此断言：
+- 需要先验证：负责人、方法、样本/来源、通过标准、截止日期。
 ```
 
-## Source Note Pattern
+## 来源与日期记录规则
 
 ```markdown
-| Claim | Source | Date checked | Confidence | Notes |
-|---|---|---|---|---|
-| Competitor A offers usage-based pricing. | [Pricing page](https://example.com/pricing) | 2026-07-12 | High | Official source. |
+| 事实陈述 | 来源编号 | 发布/更新日期 | 采集日期 | 时效判断 | 置信度 | 表述边界 |
+|---|---|---|---|---|---|---|
+| 厂商展示某套餐价格 | S3 | 2026-07-10 | 2026-07-26 | 30 天内 | 高 | 仅适用于页面所示地区、计划和周期 |
+| 用户认为某流程节省时间 | S7、S8 | 2026-05-02；2026-06-18 | 2026-07-26 | 12 个月内 | 中 | 两条可定位评价，不代表总体满意度 |
 ```
+
+页面没有发布日期或更新时间时，填“未提供”，并在时效判断中写明无法确认，而不是复制采集日期。
+
+仅由 C 类来源支持的陈述只能作为“待核验线索/未知”记录，置信度填“不适用”；不得填高、中或低，也不得进入事实、矩阵、排序或机会判断。只有合格的 A 或 B 类来源另行核验后，才能形成事实陈述。

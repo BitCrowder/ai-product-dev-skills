@@ -1,28 +1,39 @@
-# Issue-To-PR Checklist
+# Issue-To-PR 检查清单
 
-## Before Editing
+## Issue 可执行性与范围
 
-- Repository and target branch are known.
-- Issue intent is understood.
-- Acceptance criteria are explicit or assumptions are labeled.
-- Reproduction steps exist for bugs when feasible.
-- Likely files and risks are identified.
-- Unrelated changes are avoided.
+- [ ] 原始 Issue、目标、实际行为、受影响范围和责任人可定位。
+- [ ] 每条验收都是可观察行为，覆盖主路径与相关失败/权限/恢复状态。
+- [ ] 非目标明确写出，额外重构、依赖升级、格式化或相邻优化没有混入。
+- [ ] `[事实]`、`[假设]`、`[推断]`、`[未知]` 已分开；未知项说明阻断的决定。
+- [ ] 每个 `[推断]` 写明依据与验证动作，不能用推断代替仓库事实或测试结果。
+- [ ] 只列出有仓库证据的路径与责任；其余仅为搜索线索。
 
-## Before PR
+## 工作区与最小修改
 
-- Relevant tests were added or updated.
-- Verification commands were run.
-- Original issue is addressed.
-- Edge cases are covered.
-- PR body explains what changed and why.
-- PR references or closes the issue correctly.
-- Risk and rollback notes are included.
+- [ ] 已记录仓库根目录、目标分支、当前分支、基线和 `git status --short`。
+- [ ] 已有改动按用户/本任务/未知归属标记；无关改动没有被覆盖、暂存或提交。
+- [ ] 每个修改都能回链到验收或失败测试；最终 diff 没有范围外文件和行为。
+- [ ] 提交按独立可审查行为切分，暂存清单不使用宽泛模式。
 
-## Red Flags
+## 复现、TDD 与证据
 
-- Code changes start before understanding the issue.
-- No regression test for a bug fix.
-- Broad refactors mixed with feature work.
-- PR description says "minor changes" without evidence.
-- Verification is described as "should work" instead of command output.
+- [ ] Bug 有最小复现；若无法复现，已记录环境、步骤、结果、变量和继续所需证据，且没有声称修复。
+- [ ] 失败测试在实现前实际运行，失败原因与目标行为一致，不是环境/fixture 错误。
+- [ ] 最小实现后同一测试转绿，并执行适用的邻近测试、构建、类型检查、lint 或人工验证。
+- [ ] RED-E-* 与 GREEN-E-* 分行记录行为、工作目录、完整命令、执行时间、退出码、关键输出和证据位置；GREEN-E-* 回链对应 RED-E-*。
+- [ ] 每项验收映射到代码、测试或人工观察及其结果，并引用 TDD 证据 ID。
+
+## PR 与交接
+
+- [ ] PR 明确关联 Issue；closing keyword 只用于合并后应关闭的 Issue。
+- [ ] PR 说明问题、最小解法、范围、验证、未验证项、风险、回滚和后续；每个“已验证”声明引用 GREEN-E-* 或 PR-E-*。
+- [ ] PR-E-* 记录工作目录、完整命令/动作、执行时间、退出码、关键输出和证据位置；不将未运行项描述为通过。
+- [ ] 回滚区分代码、flag、数据和外部副作用；不可逆操作没有被误写为可直接回滚。
+- [ ] 下一位协作者可从证据、阻塞、owner 和下一步继续，不需猜测已运行状态。
+
+## 最终判定
+
+- **通过：** 可执行性、工作区、复现/TDD、验收证据和 PR 内容全部满足。
+- **有条件通过：** 仅有明确披露且不阻断合并的未验证项；PR 和交接已说明 owner 与后续动作。
+- **不通过：** 验收/范围不清、工作区冲突、Bug 无法复现却声称修复、没有红绿证据，或存在无关改动。

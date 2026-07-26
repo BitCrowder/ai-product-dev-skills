@@ -1,4 +1,4 @@
 interface:
   display_name: "实验设计器"
-  short_description: "设计 A/B 测试、灰度和产品验证实验"
-  default_prompt: "Use $experiment-designer：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "设计可证伪、统计稳健且可审计的产品实验方案与验证路径"
+  default_prompt: "Use $experiment-designer：为这个产品改动设计可证伪假设、分流、样本与停止规则。"

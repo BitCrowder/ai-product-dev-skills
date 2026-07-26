@@ -1,68 +1,97 @@
-# Prototype Brief Templates
+# 原型说明模板
 
-## Full Prototype Brief
+## 完整原型说明
 
 ```markdown
-# Prototype Brief: [Feature/Product]
+# [功能] 原型说明
 
-## Prototype Purpose
-- Purpose:
-- Fidelity:
-- Audience:
-- Primary question to answer:
-- Not in scope:
+## 原型决策卡
+- 目的与要改变的决定：
+- 原型受众与接收方：
+- 目标用户和使用情境：
+- 核心任务与成功退出：
+- 保真度及理由：
+- 本轮非目标：
+- 风险、负责人和最晚决定时间：
+- [待确认] 与补数动作：
 
-## User and Scenario
-- User:
-- Situation:
-- Goal:
-- Entry point:
-- Successful exit:
+## 关键任务流
+1. 入口：用户在 [情境] 从 [入口] 开始。
+2. 动作：用户 [动作]，因为 [目标/信息需求]。
+3. 反馈：系统 [反馈]，呈现 [真实内容/状态]。
+4. 分支与恢复：若 [失败/权限/空数据]，用户可 [恢复动作]。
+5. 成功退出：用户完成 [可观察结果]；原型记录 [观察点/验收]。
 
-## Primary Flow
-1. User starts at [screen].
-2. User [action].
-3. System [response].
-4. User reaches [success state].
+## 页面与状态清单
+| 页面 ID | 页面/弹层 | 存在理由与任务步骤 | 进入/离开条件 | 内容字段与来源 | 必需状态 | 行为 ID | 本轮不做 |
+|---|---|---|---|---|---|---|---|
+| [P-...] | [名称] | [它支持的决定、任务或恢复] | [条件] | [真实/脱敏/合成字段] | [默认、加载、错误等] | [B-...] | [明确排除] |
 
-## Screen Inventory
-| Screen | Purpose | User action | System response | Data/content needed | States |
-|---|---|---|---|---|---|
-
-## Component Inventory
-| Component | Used on screens | Variants | States | Notes |
-|---|---|---|---|---|
-
-## State Requirements
-| Screen/Component | Default | Empty | Loading | Error | Success | Edge cases |
+## 组件与内容契约
+| 组件 ID | 组件 | 变体与状态 | 触发/校验/恢复 | 数据与内容规则 | 极值与无障碍 | 行为 ID |
 |---|---|---|---|---|---|---|
+| [C-...] | [名称] | [尺寸、权限、禁用等] | [何时变化与下一步] | [字段、来源、是否可合成] | [长文本、空值、焦点、读屏] | [B-...] |
 
-## Content Requirements
-| Surface | Copy needed | Source | Placeholder allowed? |
-|---|---|---|---|
+## 编程代理行为契约
 
-## Interaction Rules
-| Trigger | Behavior | Validation | Error handling |
-|---|---|---|---|
+仅在交给编程代理时完整填写。每一行必须由页面或组件的 `行为 ID` 引用；同一行为跨多个页面或组件时列出全部 ID。没有接口时写“无接口”，但仍写明副作用、路由和恢复。
 
-## Responsive Behavior
-| Viewport | Layout behavior | Navigation behavior | Content priority |
-|---|---|---|---|
+| 行为 ID | 关联页面 ID/组件 ID | 当前状态 | 用户/系统事件 | 守卫/前置条件 | 下一状态 | 明确路由目标 | 副作用 | 接口请求 | 成功响应 | 失败响应 | 失败恢复 |
+|---|---|---|---|---|---|---|---|---|---|---|---|
+| [B-...] | [P-.../C-...] | [状态] | [点击/系统回调] | [条件] | [状态] | [完整路径或“当前页”] | [事件、缓存或无] | [方法、路径、请求体或无] | [状态码和消费字段] | [状态码/错误类型和 UI 状态] | [用户可执行的重试、返回或替代路径] |
 
-## Analytics and Instrumentation
-| Event | Trigger | Properties |
+## 跨端、无障碍与埋点
+| 主题 | 规则 | 验收或观察方式 |
 |---|---|---|
+| 响应式 | [目标宽度、重排、导航、内容优先级] | [桌面/移动关键任务可完成] |
+| 无障碍 | [语义、焦点、键盘、错误、对比度、状态播报] | [键盘与读屏路径] |
+| 埋点/观察 | [事件、触发、最小属性、隐私边界] | [任务完成/放弃或实现验收] |
 
-## Handoff Notes
-- Design system:
-- Visual references:
-- Accessibility:
-- Engineering notes:
-- Open questions:
+## 接收方交接包
+### 设计师交接
+- 受试任务、研究问题和不引导的任务文案：
+- 观察记录格式：完成/放弃、错误、犹豫点、原话和时间；不记录无关个人信息：
+- 必须可点击的路径、状态优先级和评审标准：
+
+### Figma 交接
+- 页面树、页面/图层命名和原型起点：
+- 组件、变体、变量、内容样式和使用边界：
+- 原型连接、分支、返回路径、流失焦点/覆盖层处理和评审注释：
+
+### 编程代理
+- 路由/屏幕与组件边界：
+- 行为契约 `B-*`、页面/组件 ID 追溯、数据字段、内容来源与禁止编造的规则：
+- 接口、成功/失败响应、恢复、缓存/事件副作用与明确路由目标：
+- 响应式、无障碍、事件、技术约束与验收：
+
+## 开放问题
+| 问题 | 影响 | 补数动作 | 负责人 | 截止时间 |
+|---|---|---|---|---|
 ```
 
-## Coding-Agent Prompt Pattern
+## 一句话想法探索卡
+
+```markdown
+# [想法] 低保真探索卡
+
+- 想法原文：
+- 候选用户与待验证问题：
+- 候选核心任务：
+- 最小流程：入口 -> [关键动作] -> [可观察反馈] -> 退出
+- 低保真范围：只表达 [信息层级/任务分支]；不制作 [品牌、高保真组件、未确认功能]
+- [待确认]：用户、平台、成功条件、内容来源、权限或约束
+- 补数动作：访谈/现有数据/PRD owner 确认
+- 下一次评审决定：
+```
+
+## 编程代理提示语
 
 ```text
-Build a prototype for [feature] using the brief below. Preserve the described user flow, screen states, and responsive behavior. Do not add new product logic unless marked as an assumption. Use placeholders only where the brief allows them.
+Use $prototype-brief-builder 的说明实现 [功能]。只实现列出的路由、页面、组件、状态和真实/受控合成内容；不要发明业务规则、接口、权限或错误恢复。按说明完成目标视口的响应式、键盘与读屏路径、事件属性和验收；未确认项保留为明确的缺口。
 ```
+
+## 模板使用规则
+
+- 方括号是作者填写的结构提示，不是交付给接收方的占位内容；成稿必须替换、删除或明确标记为 `[待确认]`。
+- 只有已获授权且不含敏感信息的内容可使用真实数据；合成数据必须说明字段来源和保真边界。
+- 每个页面、状态、事件和交接项都要能追溯到原型决策卡中的目的或任务流；编程代理交接还要从 `P-*`/`C-*` 追到 `B-*` 行。

@@ -1,4 +1,4 @@
 interface:
   display_name: "代码库入门导航"
-  short_description: "快速读懂仓库结构、入口和风险点"
-  default_prompt: "Use $codebase-onboarding：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "按任务用可追溯证据定位入口、命令、风险与阅读下一步"
+  default_prompt: "Use $codebase-onboarding：请围绕我的任务，用文件和命令证据梳理仓库并区分已知、推测和未知。"

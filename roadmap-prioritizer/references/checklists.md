@@ -1,12 +1,25 @@
-# Roadmap Prioritization Checklist
+# 路线图优先级排序检查清单
 
-- The decision horizon is clear.
-- The business or product goal is named.
-- Each item is normalized before scoring.
-- The scoring model is appropriate for available evidence.
-- Score math is visible.
-- Confidence is not treated as certainty.
-- Dependencies and sequencing constraints are included.
-- Tradeoffs explain why lower-ranked items were deferred.
-- The result includes a next validation step.
-- The roadmap does not pretend every stakeholder request fits in the same phase.
+## 输入与证据
+
+- [ ] 决策、决策人、规划周期、目标、护栏和不可触碰限制已写明。
+- [ ] 每个候选项都说明目标用户/问题、预期结果、负责人和当前状态。
+- [ ] 每条证据有来源、日期、目标分群匹配度和置信度；假设与未知项没有伪装成事实。
+- [ ] 战略、合规、合同、安全或平台强制项有指定人、依据、截止时间、最小范围和失败后果。
+
+## 模型与评分
+
+- [ ] 所选模型与可用数据相称，并说明为什么不选其他模型。
+- [ ] RICE 的 Reach、Impact、Confidence、Effort 均有统一单位、时间窗、尺度和来源；公式为 `(Reach × Impact × Confidence) / Effort`。
+- [ ] ICE 的 Impact、Confidence、Ease 均为独立整数 `1-5`，并分别引用目标影响、证据与交付摩擦锚点；未复用 RICE 的 Impact 或 Confidence 尺度，Ease 也未反推 Effort、日期或容量。
+- [ ] Kano 有用户反应依据；MoSCoW 的 Must 有明确约束；自定义权重总计 100%。
+- [ ] 缺失输入保持 `[未知]`，没有被填成 0、平均数或无来源小数。
+- [ ] 低置信度、估计范围和不能断言的结论均已显示。
+
+## 可行性与决定
+
+- [ ] 总容量先扣除强制项、维护和已有承诺，再按角色与并行限制检查。
+- [ ] 依赖含前置项、负责人、最晚确认时间、阻塞影响与替代路径；路线图尊重关键路径。
+- [ ] 对每个 Top 候选分别测试 Confidence 下调、Effort 上调、Reach/Impact 合理低值和已登记依赖延迟；逐项显示变动后排序/组合，翻转为“敏感”、未翻转为“稳健”。
+- [ ] 评分、推荐组合和最终决定三者分开记录；偏离有决策人、理由、机会成本和重审条件。
+- [ ] Now/Next/Later 或阶段路线图包含成功信号、验证动作、被推迟项和下一次重审。
