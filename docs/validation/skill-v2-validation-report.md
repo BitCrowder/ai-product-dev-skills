@@ -1657,3 +1657,12 @@ PASS replayable-red, symlink-upload-red, green-tests, human-json, quick-validate
 - JSON expected-20：同一 detached snapshot 运行 `.../validate_skill_repo.py . --expected-count 20 --json`，结果为 `{"expected_skill_count": 20, "issues": [], "passed": true, "skill_count": 20}`；随后由标准库 JSON 断言确认 `expected_skill_count == skill_count == 20`、`passed is true`、`issues == []`。
 - 本地卫生：candidate 的 `git diff --check` 与 `git status --short` 均无输出；临时 detached worktree 已移除。写入本节前，当前工作树的 `git diff --check` 也无输出。
 - 限制与后续：上述结果只证明固定本地 candidate 的结构、导航、链接和 verifier 行为。主代理仍需按批准范围同步候选提交，并独立核验远端仓库可见性、默认分支、远端 SHA 和完整文件树；任何网络、认证、分支或文件树失败都必须保留为未验证/失败状态。
+
+## Task 22：GitHub 远端发布核验
+
+- 同步候选：本地最终验证提交为 `fbb9a5d707a9f54efa328135abf34e5eee222ec5`，其完整 Git tree 为 `dd44347bfdf4396fdf0e9219ffde72997965e7d7`，包含 136 个 `100644 blob`。本机到 `github.com:443` 超时且 GitHub connector 写入返回 `403 Resource not accessible by integration`，因此未把失败的普通 push 或 connector 请求误报为成功。
+- 授权回退：使用本机现有 `gh` OAuth 凭据，通过可联网的 Node 运行时调用 GitHub Git Data API。上传内容全部由固定候选提交读取；GitHub 创建出的 tree SHA 为 `dd44347bfdf4396fdf0e9219ffde72997965e7d7`，与本地 tree SHA 精确一致。
+- 候选分支：远端 `skill-library-v2` 从 `a5f961b69227a69e98124a3f5746b5aaa8d416ba` 快进到 `88c82f0b182f0d9f0a4e361b7097ef04ee666580`。递归 tree 返回 `truncated=false`；逐 path 比较本地与远端的 `path`、`mode`、`type`、`blob SHA`，结果为 136/136 文件、0 差异。
+- Pull Request：公开 PR [#1](https://github.com/BitCrowder/ai-product-dev-skills/pull/1) 更新为最终说明，GitHub 返回 `mergeable=true`、`mergeable_state=clean`，随后以 squash 方式成功合并。
+- 默认分支：公开仓库 `BitCrowder/ai-product-dev-skills` 的可见性为 `public`，默认分支为 `main`。合并提交为 `c6263902309bfbfa56fd619369fc7bbf156e9a7a`，其 tree SHA 仍为 `dd44347bfdf4396fdf0e9219ffde72997965e7d7`；递归 tree 未截断，136/136 文件与本地候选逐 path、mode、type、blob SHA 完全一致，0 差异。
+- 结论：V2 候选已发布到公开默认分支并完成 blob 级远端核验。真实远端写入使用的是候选提交绑定的固定 tree；普通 Git 网络和 connector 权限失败均被保留为失败事实，没有被成功回退结果覆盖。
