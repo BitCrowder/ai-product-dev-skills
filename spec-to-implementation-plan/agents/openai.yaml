@@ -1,4 +1,4 @@
 interface:
   display_name: "规格转实施计划"
-  short_description: "把规格文档拆成工程实施计划"
-  default_prompt: "Use $spec-to-implementation-plan：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "将产品规格验收标准与仓库证据拆成独立可审查且可验证的工程实施计划"
+  default_prompt: "Use $spec-to-implementation-plan：根据需求与仓库证据生成有接口、任务、测试和发布验证的实施计划。"

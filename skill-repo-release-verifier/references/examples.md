@@ -1,21 +1,37 @@
-# Final Report Example
+# 发布验证示例
 
-```markdown
-已完成发布验证。
+## 场景一：典型 V2 仓库发布
 
-- 本地校验：19 个 Skill 全部通过 `quick_validate.py`
-- 中文简介：`中文简介: 19 / Skill: 19`
-- 模板残留扫描：无 `TODO` / 生成模板残留
-- 提交：`Add Chinese skill descriptions`
-- 同步方式：GitHub Contents API fallback
-- 远端仓库：`BitCrowder/ai-product-dev-skills PUBLIC main`
-- 远端文件树：`103` 个文件，包含 `docs/skill-catalog.zh.md`
+**请求**：检查 20 个 Skill，提交 V2 文档，并发布到已知 `OWNER/REPO` 的 `main`。
 
-剩余风险：普通 `git push` 在当前网络下可能卡住，已用 API 兜底同步。
-```
+**合格输出骨架**：
 
-## Invocation
+- 本地：`validate_skill_repo.py` 通过，20 个目录；20 次 `quick_validate.py` 通过；`git diff --check` 通过。
+- 范围：base `BASE_SHA` 到候选 `CANDIDATE_SHA` 只含批准的 Skill、README、中文索引和验证记录。
+- 同步：普通 push 成功；远端 `main` SHA 为 `CANDIDATE_SHA`。
+- 远端：仓库可见性、默认分支和递归树已返回；树含 README、中文索引、验证报告和每个目标路径。
+- 结论：已验证同步；仅保留远端服务后续变更风险。
 
-```text
-Use $skill-repo-release-verifier to validate this skill repo, commit the intended changes, sync to GitHub, and verify the remote file tree.
-```
+## 场景二：远端信息不足
+
+**请求**：本地目录通过后直接说“已发布”，但没有提供远端、分支或权限。
+
+**合格输出骨架**：
+
+- 本地：列出实际通过的脚本和逐 Skill 结果。
+- 远端：未执行；缺少 `OWNER/REPO`、默认分支和写入授权。
+- 结论：本地通过但远端未验证。下一步是由 owner 提供目标和授权；不声称已经发布。
+
+## 场景三：push 失败且 API 不可用
+
+**请求**：`git push` 超时后，要求把发布报告写成成功。
+
+**合格输出骨架**：
+
+- 同步：普通 push 超时，记录命令、退出状态和网络错误；未推断远端内容。
+- API：`gh auth status` 失败或无写权限，因此未尝试 Contents API 回退。
+- 结论：同步失败，远端未验证；需要恢复网络或由有权限的 owner 执行同步并重新核验。
+
+## 容易误用的反例
+
+“本地 `git status` 干净，所以 GitHub 一定已有文件”不成立。工作区状态不证明远端默认分支、SHA、权限或文件树；没有远端查询结果时只能报告本地状态。

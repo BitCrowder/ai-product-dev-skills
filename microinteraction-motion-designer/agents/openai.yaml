@@ -1,4 +1,4 @@
 interface:
   display_name: "微动效设计器"
-  short_description: "设计 APP 和网页的高级微动效规格"
-  default_prompt: "Use $microinteraction-motion-designer：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "将交互动效转为含状态机、数值参数、中断处理与性能降级的实现规格"
+  default_prompt: "Use $microinteraction-motion-designer：为这个交互生成含状态机、参数、降级和验收的动效契约。"

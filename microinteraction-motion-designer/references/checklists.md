@@ -1,52 +1,52 @@
-# Motion Quality Checklist
+# 动效质量清单
 
-## Product Fit
+## 目的与空间
 
-- Motion communicates a state change, feedback, hierarchy, progress, or continuity.
-- Motion matches the product tone: utility tools stay restrained; playful apps can be more expressive.
-- Motion does not distract from reading or completing the task.
-- Motion frequency is appropriate for how often the interaction occurs.
+- [ ] 每段动效明确传达反馈、连续性、层级、进度或状态变化之一。
+- [ ] 同级、下级、返回和覆盖层采用不同的方向与层级语义。
+- [ ] 高频任务没有被装饰性动画延迟；全页请求已缩小为可测的关键关系。
+- [ ] 每个元素只有一个主要变化和至多一个辅助变化。
 
-## Spec Quality
+## 参数与状态机
 
-- Trigger is explicit.
-- Animated object is explicit.
-- Starting and ending states are defined.
-- Duration, easing, and delay/stagger are defined.
-- Interruption behavior is defined.
-- Reduced-motion fallback is defined.
-- Acceptance criteria are observable.
+- [ ] `M-*` 有当前状态、事件、守卫、目标状态、可见反馈和完成状态。
+- [ ] 时长、位移、延迟、stagger、并发数、easing 或 stiffness/damping/mass/velocity 均有数值和单位。
+- [ ] 每个弹簧指定目标运行时/库/API、求解器语义、参数 API 语义或单位、实际初速度、目标值、restDelta、restSpeed 和最大 settle 时间。
+- [ ] 不同平台的弹簧有字段映射和以目标/settle/overshoot 为基准的重新调参计划；没有映射时不复制参数。
+- [ ] 距离、层级、频率和时长相称；普通组件不靠超过 `320ms` 的转场营造质感。
+- [ ] 直接操控逐帧跟手；释放才进入基于位置/速度/阈值的吸附。
 
-## UX Quality
+## 中断与恢复
 
-- User action receives immediate feedback.
-- Navigation direction matches information hierarchy.
-- Same-level changes feel continuous, not like a page jump.
-- Drag surfaces have resistance, velocity, and snap points.
-- Loading states avoid layout shift when real content appears.
-- Data animations reveal change without misleading the scale.
+- [ ] 快速重复输入、反向操作、路由返回、卸载、数据替换和 `pointercancel` 都有处理。
+- [ ] 新目标从当前 presentation value 或稳定点继续；没有跳回起点。
+- [ ] 计时器、rAF、观察器、监听器和动画控制器在取消时清理。
+- [ ] 异步完成用 transition/request id 保护，旧回调不覆盖当前 UI。
 
-## Engineering Quality
+## 无障碍与降级
 
-- Prefer transform and opacity for performance.
-- Avoid animating layout-heavy properties unless necessary.
-- Avoid long-running animations on large lists.
-- Respect existing design system and framework patterns.
-- Do not add a large animation dependency for one simple transition.
-- Test mobile touch behavior when the motion is gesture-based.
+- [ ] `prefers-reduced-motion: reduce` 取消非必要位移、回弹、视差和循环，保留状态信息。
+- [ ] 低端档有可测触发条件，且减少并发、范围和连续计算而非移除反馈。
+- [ ] 性能协议有交互作用域采样源、窗口、产品基线/待验证阈值、稳定切换点、恢复冷却期和防抖；不会在拖拽中跳档。
+- [ ] `low` 后存在可实现的恢复生命周期：低频探针或跨后续交互累计明确二选一，开始/停止、窗口累计/long frame 重置和无交互行为均已定义。
+- [ ] document hidden/app background 会暂停并清理 timeout/rAF/平台采样器、停止冷却并重置恢复窗口；foreground 后只从新的可见样本恢复。
+- [ ] `restore-pending` 只在 idle、transition 完成或稳定 snap point 提交 full；假时钟和可控帧样本可确定性触发并验证该路径。
+- [ ] 成功、错误、加载和禁用不只靠动效表达；文案、图标、颜色、焦点或读屏可独立理解。
+- [ ] 键盘焦点、读屏状态和弹层焦点管理不被过渡破坏。
 
-## Accessibility
+## 性能与验收
 
-- Respect `prefers-reduced-motion` or platform equivalent.
-- Do not rely on motion alone to communicate critical state.
-- Avoid flashing, intense vibration, or rapid repeated motion.
-- Keep focus states and keyboard navigation intact.
+- [ ] 优先 `transform`/`opacity`；不在每帧读写布局或大面积使用 filter/阴影。
+- [ ] 列表仅动首屏可见项；虚拟化、滚动追加和回访不会重放进入。
+- [ ] 循环只在可见、仍在等待时运行，并在完成、离屏或降级时停止。
+- [ ] 已验证完整、减少动态和低端档的视觉稳定、快速操作、取消、任务完成和恢复路径。
 
-## Red Flags
+## 红旗
 
-- The spec only says "make it smooth" or "add premium feel".
-- Multiple effects compete on the same object.
-- Animation delays a common workflow.
-- Motion continues after the user changes state.
-- Text overlaps or layout shifts during animation.
-- A page transition hides where the user came from.
+- “所有页面都加高级动效”“自然一点”“有阻尼感”没有任务、状态和参数。
+- 长列表逐项 stagger、滚动视差、无限 shimmer 或大量并行 blur 被默认启用。
+- 动效仍在结束，但用户已选择新 Tab、返回、取消或数据已变。
+- 低端档仅隐藏动画，导致用户看不到提交、错误、层级或恢复状态。
+- 同一组弹簧数值跨库复制，或速度、目标、rest 阈值和 settle 时间留给实现者猜测。
+- 把一两次掉帧当作即时切档依据，没有采样窗口、稳定边界、恢复冷却期或防抖。
+- 采样在交互结束时停止，却要求无来源的恢复窗口；或在隐藏/后台仍运行 rAF/计时器并把空档当干净帧。

@@ -1,26 +1,41 @@
-# Competitive Research Checklist
+# 竞品调研检查清单
 
-## Evidence Quality
+## 开始前
 
-- Each important claim has a source or is labeled as an assumption.
-- Official sources are preferred for pricing, packaging, docs, and feature claims.
-- Review themes are based on multiple examples when possible.
-- Source dates are included.
-- The brief distinguishes direct competitors from substitutes.
-- Confidence levels are assigned consistently.
+- 决策问题、目标用户、工作流、地区/平台和研究时间点已明确，或已标为假设。
+- 已定义直接竞品、替代方案和相邻方案的纳入/排除标准。
+- 价格比较已声明币种、税费、席位、套餐和付款周期。
+- 每个功能行已写成可观察能力，而非模糊形容词。
+- 无法浏览或资料范围受限时，证据边界已写明。
 
-## Analysis Quality
+## 来源与时效
 
-- Competitors are compared on the same dimensions.
-- The report identifies table stakes and differentiators.
-- The report includes what not to build.
-- Opportunities are tied to evidence.
-- Recommendations are specific enough to inform product scope.
+- 每个关键事实都能回链到来源编号、链接或用户提供材料的位置。
+- 每个来源都有层级、发布日期/更新时间、采集日期、适用范围和限制；未知日期已明确写为“未提供”。
+- 第一方材料只用于其能证明的产品事实；厂商价值主张没有被写成用户结果。
+- 第二方用户证据记录了来源类型、时间窗、样本或条数和受影响群体。
+- C 类线索没有被当作最终事实；仅由 C 类支持的陈述已标为“待核验线索/未知”，不进入高、中、低事实结论分级、矩阵、排序或机会判断。只有合格的 A 或 B 类来源另行核验后，才能形成事实陈述。
+- 动态事实符合 30/90/180 天或用户指定的时间窗；过期材料没有单独支撑当前结论。
 
-## Red Flags
+## 可比性与结论
 
-- The brief only summarizes websites.
-- The brief treats marketing copy as proof of user value.
-- The brief compares competitors with uneven criteria.
-- The brief recommends building everything competitors have.
-- The brief has no next validation step.
+- 每个价格单元使用相同地区、币种、税费、席位、套餐和周期；否则写为不可直接比较。
+- 每个功能单元使用相同能力定义和“支持、部分支持、不支持、未知、不适用”状态。
+- 未找到证据的单元写“未知”，没有被改写为“不支持”或零分。
+- 事实、假设、推断和未知项互不混淆；推断列出了支撑事实和适用范围。
+- 高、中、低置信度符合来源层级、时效、范围匹配和交叉验证规则；C 类单独支持的线索没有被赋予高、中或低；无证据项没有置信度伪装。
+- “最佳”“领先”“更受欢迎”“市场缺口”等结论有明确证据链；否则改为限定性推断或待验证假设。
+- 每项机会同时说明用户问题、竞品覆盖和可测试价值主张；缺一项则提供验证计划而非推荐投入。
+
+## 交付前
+
+- 研究卡已包含问题、范围、纳入/排除标准、统一口径和证据边界。
+- 来源台账已包含来源层级、链接、发布日期/更新时间、采集日期、适用范围、摘录和限制。
+- 陈述台账已逐项区分事实、假设、推断和未知项，并为事实关联来源编号与置信度。
+- 证据分级竞品矩阵覆盖约定维度；每个比较单元可追溯，未知与不可比显式保留。
+- 定位地图已包含操作化轴、可比较竞品及证据、不可比较或未知项和限定性结论。
+- 评论/体验主题已说明来源类型、样本或条数、时间窗、受影响人群和主题限制；单条评价没有被写成主题或排名证据。
+- 机会、风险和建议已区分证据支持的结论与待验证假设，并包含结论置信度、下一步验证及不应做的承诺。
+- 输出明确陈述证据边界、冲突来源和会改变决定的未知项。
+- 建议区分“现在可做”“不能据此断言”和“需要先验证”。
+- 不把营销文案、传闻、搜索摘要、单条评论或缺失数据作为排序依据。

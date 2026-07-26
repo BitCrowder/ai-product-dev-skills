@@ -1,4 +1,4 @@
 interface:
-  display_name: "上线就绪检查清单"
-  short_description: "检查上线风险、监控、客服和回滚准备"
-  default_prompt: "Use $launch-readiness-checklist：请根据我的问题生成结构化、可执行的结果。"
+  display_name: "上线就绪与发布决策"
+  short_description: "用证据、责任、灰度和回滚做 go/no-go"
+  default_prompt: "Use $launch-readiness-checklist：基于发布类型、风险、范围、真实证据、owner、依赖、AI/安全约束和回滚能力，生成可裁剪的就绪账本、灰度与回滚计划、go/no-go 决策和发布后观察门禁；不要把口头确认写成通过。"

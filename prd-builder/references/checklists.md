@@ -1,31 +1,39 @@
-# PRD Quality Checklist
+# PRD 质量检查清单
 
-## Completeness
+## 输入与问题定义
 
-- The target user or segment is named.
-- The user problem is stated without solution bias.
-- The business or product goal is explicit.
-- The primary success metric is measurable.
-- Non-goals are listed.
-- Requirements are prioritized.
-- Requirements are testable.
-- Acceptance criteria cover happy, empty, error, and edge states where relevant.
-- Dependencies and owners are identified.
-- Risks and mitigations are included.
-- Open questions are separated from requirements.
+- 已写明本 PRD 要支持的决策、决策人、截止时间、目标与限制；未知项没有被补写成事实。
+- 目标用户、分群边界、情境、JTBD、当前替代方案和可观察后果完整，或已作为条件草案标记。
+- 问题、业务目标和候选方案互相分离；问题陈述不以功能名称代替用户摩擦。
+- 会议纪要、研究、数据和决策均保留来源、日期和可定位位置；冲突没有被静默抹平。
 
-## Red Flags
+## 证据与范围
 
-- Requirements use vague words such as better, seamless, powerful, robust, or intuitive without test criteria.
-- The PRD includes every requested idea in v1.
-- The PRD hides assumptions as facts.
-- The PRD has metrics without instrumentation.
-- The PRD lacks rollback, migration, or support considerations for a launchable feature.
+- 每个关键判断标为 `[事实]`、`[证据]`、`[假设]`、`[推断]` 或 `[待确认]`，并写明强弱和限制。
+- 弱证据、偏好、单个案例或未来承诺没有被当作已验证需求、总体优先级或因果结论。
+- 每个候选项都判断了核心结果、阻断性、依赖和可延后性。
+- MVP 只保留完成最小用户结果或不可替代依赖的内容；后续候选与非目标均有理由、替代处理和重审条件。
+- 遇到“全放进 MVP”的请求时，已保留候选池但交付有边界的推荐范围与具名决策路径。
 
-## Final Review Questions
+## 需求、状态与验收
 
-1. Could an engineer estimate this without another meeting?
-2. Could QA write tests from the acceptance criteria?
-3. Could data verify whether the feature worked?
-4. Could design identify the required screens and states?
-5. Could leadership see why this is worth doing now?
+- 功能需求有前置条件、可观察行为、结果、优先级、理由、依赖、状态 ID、埋点 ID 和验收 ID。
+- 非功能需求含可测量约束、适用范围和验收方式；没有“快速、智能、强大、无缝、安全”等不可测试形容词；其引用的验收 ID 已在验收表定义。
+- 每个核心流程评估默认、空、加载、错误与恢复、权限/资格和成功/完成状态；每个状态 ID 反向引用需求 ID，不适用项注明原因。
+- 每条埋点 ID 反向引用需求 ID，且包含事件、触发点、属性、去重/失败处理、隐私限制和验证方法。
+- 每个验收 ID 都反向引用功能或非功能需求；需求表、状态表、埋点表和验收表没有未定义、重复或指向错误的 ID。
+- 验收标准覆盖主路径、输入校验、异常/恢复、权限/资格和关键埋点，独立 QA 可以据此判定。
+
+## 指标与交付
+
+- 结果、过程和护栏指标有明确口径、时间窗、分群、基线、阈值和负责人；基线未知时有补数计划。
+- 埋点规格含事件、触发点、属性、去重/失败处理、隐私限制、数据消费者和验证方法。
+- 依赖、风险、开放问题和决策都有 owner、时间、影响、替代或重审条件。
+- 风险缓解包含预防、监控、触发阈值和应对/回滚，而不是笼统“关注”。
+- 下游团队可以据此估算、设计、测试、埋点和追踪决策，不需要靠猜测补齐关键边界。
+
+## 最终判定
+
+- **通过：** 证据边界、MVP、需求/状态、验收、数据、依赖和决策责任均完整，可进入设计或工程拆分。
+- **有条件通过：** 核心范围和验收已清楚，但明确列出的待确认项尚未阻断当前下一步；先完成指定验证再进入开发承诺。
+- **不通过：** 缺少问题/用户/决策、将假设写成事实、MVP 无边界、核心需求不可测试，或依赖/风险没有 owner；仅交付缺口与下一步。

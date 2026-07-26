@@ -1,28 +1,77 @@
-# Launch Readiness Examples
+# 上线就绪场景示例
 
-## Invocation
+以下是文档级 V1/V2 复测，不声称运行过外部系统、迁移、演练或真实发布。示例中的链接、阈值、角色和时间必须由实际团队替换或保留为 `GAP-*`。
 
-```text
-Use $launch-readiness-checklist to assess whether our AI support chatbot can launch to 10% of customers next week.
-```
+## 场景一：普通 Web 功能上线
 
-## Output Skeleton
+**原始请求：** `下周发布团队权限管理 Web 功能。产品和 QA 都看过了，帮我出一份 checklist。`
+
+**V1 缺口：** V1 会列出产品、工程、QA、分析和回滚领域，但“看过了”可能被当作 Ready；它没有要求每项给 owner、截止、可复核证据和阻断级别，也未强制核对权限迁移、文案、埋点、FAQ 和决策权限。
+
+**V2 输出骨架：**
 
 ```markdown
-# Launch Readiness Review: AI Support Chatbot 10% Rollout
+- [未知]：目标工作区、角色迁移方式、发布窗口、go/no-go 权限人、CI/QA/埋点链接；这些不是“已看过”的替代品。
 
-## Executive Status
-- Recommendation: Limited rollout
-- Highest risk: Incorrect policy answers during missing-context cases
-- Required condition: Eval groundedness >= 95% and support escalation macro ready
+| R-ID | 领域 | 状态 | owner | 截止 | 证据 | 阻断级别 | 下一动作 |
+|---|---|---|---|---|---|---|---|
+| R-01 | 功能/验收：角色创建、修改、撤销 | 待验证 | 工程 owner | 发布前 | `GAP-01`：需 CI/关键路径结果 | Blocker | 运行并链接权限回归 |
+| R-03 | 数据：旧角色到新模型、前向兼容 | 待验证 | 数据 owner | 发布前 | `GAP-02`：迁移设计/校验未提供 | Blocker | 写 expand/contract 和恢复查询 |
+| R-04 | 文案/发布说明 | 待验证 | 产品 owner | 发布前 | `GAP-03`：文案链接未提供 | Launch risk | 审核空态、权限拒绝和说明 |
+| R-05 | 埋点/监控 | 待验证 | 数据 owner | 发布前 | `GAP-04`：仪表盘/告警未提供 | Blocker | 验证角色写入失败和权限拒绝 |
+| R-07 | 支持/FAQ | 待验证 | 支持 owner | 发布前 | `GAP-05`：FAQ/升级路径未提供 | Launch risk | 发布宏和升级路由 |
 
-## Blockers
-| Blocker | Impact | Owner | Required resolution |
-|---|---|---|---|
-| No support escalation macro | Support cannot handle bad answer reports consistently | Support lead | Publish macro before rollout |
-
-## Monitoring Plan
-| Signal | Threshold | Action |
-|---|---|---|
-| Unsupported answer reports | > 3 in 24h | Pause rollout and review traces |
+- 决策：No-go，直到 R-01/R-03/R-05 有可复核证据，且具名权限人完成决定；不能由“产品和 QA 看过”改为 Go。
 ```
+
+**复测结论：** V2 把普通 Web 功能按中高风险权限/迁移变化裁剪，保留了功能、QA、数据、文案、埋点、监控、支持、FAQ、隐私安全、风控和依赖检查。没有证据、owner 或截止的项目保持待验证或阻断。
+
+## 场景二：高风险 AI 功能灰度
+
+**原始请求：** `把能提交退款的 AI 客服助手从内部测试灰度到 10%，模型评测平均分不错。`
+
+**V1 缺口：** V1 只笼统要求 AI eval、失败抽样和人工 review，没有将内容质量、提示注入、工具越权、副作用、人工兜底、feature flag 的暂停路径和阶段扩大条件设为独立硬门禁；平均分可能掩盖一次错误退款。
+
+**V2 输出骨架：**
+
+```markdown
+| AI-ID | 风险 | 证据 | 状态 | owner | 截止 | 失败动作 | 阻断级别 |
+|---|---|---|---|---|---|---|---|
+| AI-01 | 退款政策内容/引用、错误拒答 | `GAP-AI-01`：未给真实 E-*/Gate | 待验证 | AI 质量 owner | 进入 1% 灰度前 | 停止扩大并人工复核 | Blocker |
+| AI-02 | 提示注入/账户信息外泄 | `GAP-AI-02`：未给攻击测试 | 待验证 | 安全 owner | 进入 1% 灰度前 | 关闭 flag、保全 trace | Blocker |
+| AI-03 | 客服越权提交退款、金额/幂等错误 | `GAP-AI-03`：未给权限/副作用证据 | 待验证 | 退款工具 owner | 进入 1% 灰度前 | 关闭提交能力、回滚 | Blocker |
+| AI-04 | 人工兜底队列和响应时间 | `GAP-AI-04`：无队列/SLA | 待验证 | 客服运营 owner | 进入 1% 灰度前 | 禁止扩大 | Blocker |
+
+| 阶段 | 流量 | 进入条件 | 暂停/回滚 | 扩大条件 |
+|---|---|---|---|---|
+| 0 | 内部 | AI-01..04 关闭，flag 关闭操作已演练 | 任一高危失败即关闭 `refund_agent_submit` | 观察窗口完成 |
+| 1 | 1% | 具名权限人批准；仅低风险账户 | 注入/越权/错误提交任一发生 | 高危为零、人工队列/SLA 达标 |
+| 2 | 10% | 阶段 1 的阈值、抽样与支持复核通过 | 同上 | 书面复核后才扩大 |
+
+- 决策：No-go。平均分“不错”不构成 AI-01..04 的证据；只有全部 Blocker 关闭后才可进入 1% 灰度。
+```
+
+**复测结论：** V2 将 AI 发布按不可逆资金副作用提为高风险，要求独立 eval、安全、权限和人工兜底证据，并让每一灰度阶段都具备具体停流条件。
+
+## 场景三：截止时间已到但回滚方案缺失
+
+**原始请求：** `今晚必须发布订单表迁移。功能测过了，但还没有回滚演练；能不能先 go，出事再说？`
+
+**V1 缺口：** V1 要求“rollback plan”，但没有要求触发器、顺序步骤、owner、演练、数据前向兼容和例外权限。于是口头“出事再说”可能被写成带缓解的发布。
+
+**V2 输出骨架：**
+
+```markdown
+| R-ID | 检查 | 状态 | owner | 截止 | 证据 | 阻断级别 | 下一动作 |
+|---|---|---|---|---|---|---|---|
+| R-03 | 订单表迁移：双读写、回填校验、前向兼容 | 待验证 | 数据迁移 owner | 迁移窗口开始前 | `GAP-MIG-01`：未提供兼容/恢复查询 | Blocker | 定义 expand/contract 与旧读路径 |
+| R-10 | 回滚：触发器、步骤、owner、演练 | 阻断 | 发布工程 owner | go/no-go 会议前 | `GAP-RB-01`：没有演练/关闭命令 | Blocker | 在 staging 演练停流、回退、校验和沟通 |
+
+| 触发器 | 决策 owner | 执行 owner | 验证 owner | 沟通 owner | 截止 | 有序步骤 | 验证证据 | 兼容/补偿 | 演练证据 |
+|---|---|---|---|---|---|---|---|---|---|
+| 数据校验失败或订单写入错误率超已批准阈值 | 发布经理 | 发布工程 owner | 数据质量 owner | 客户沟通 owner | 迁移窗口开始前 | 1. 停新迁移流量 2. 保留新字段读取 3. 回退写路径 4. 执行补偿 | `GAP-RB-02`：订单一致性查询未执行 | 旧/新 schema 双读；不可删除新写入 | `GAP-RB-01`：未演练 |
+
+- 决策：No-go。若具名权限人提出 Conditional go，必须限定为不执行迁移的可逆功能发布，写明流量、失效期、监控、关闭命令和迁移 Blocker 关闭条件；不能批准无兼容或演练的迁移上线。
+```
+
+**复测结论：** V2 不会用截止时间覆盖迁移和回滚 Blocker。只有明确权限人批准的有限例外才可能是 Conditional go，且条件、观察、停止和关闭时间均可审计。

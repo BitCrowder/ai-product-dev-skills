@@ -1,4 +1,4 @@
 interface:
   display_name: "PRD 生成器"
-  short_description: "把产品想法整理成工程可用 PRD"
-  default_prompt: "Use $prd-builder：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "将产品证据、范围取舍和验收标准转成工程可交接的 PRD"
+  default_prompt: "Use $prd-builder：请基于以下材料生成有证据边界、MVP 取舍和验收标准的 PRD。"

@@ -1,29 +1,73 @@
-# Issue-To-PR Examples
+# Issue-To-PR 场景示例
 
-## Invocation
+## 场景一：清晰 Issue 的最小修复
 
-```text
-Use $issue-to-pr to fix issue #42 where the dashboard crashes when the project has no activity.
-```
+**调用：** `Use $issue-to-pr：Issue #42 要求空活动项目的仪表盘显示空状态而不是崩溃；验收是刷新和直接访问都稳定，范围不改活动排序。仓库和现有 dashboard 测试可访问。`
 
-## Output Skeleton
+**合格输出骨架：**
 
 ```markdown
-## Issue Understanding
-Dashboard assumes at least one activity item. Empty projects trigger an undefined access.
+## Issue 可执行性卡
+- [事实] AC-1：活动数组为空时页面渲染空状态；AC-2：有活动时既有列表不变。
+- 非目标：不改查询排序、活动模型或设计系统。
+- [推断]：空活动路径可能复用现有 dashboard 渲染组件；依据是调用输入只说明该组件与相邻测试可访问，验证动作是先读取入口和测试后再确认。
 
-## Implementation Plan
-| Area | Change | Risk |
-|---|---|---|
-| Activity query | Return empty array safely | Low |
-| Dashboard component | Render empty state | Medium |
-| Tests | Add empty-project regression | Low |
+## 工作区与 TDD
+- 已确认当前分支与用户改动；只触及 dashboard 组件和相邻测试。
+- 文档示例不执行外部仓库命令；真实交付必须填写下列 RED/GREEN 字段，未运行时执行时间、退出码、关键输出和证据位置均写“未运行，不填”。
+| 证据 ID | 阶段 | 行为 | 工作目录 | 完整命令 | 执行时间 | 退出码 | 关键输出 | 证据位置 |
+|---|---|---|---|---|---|---|---|
+| RED-E-01 | RED | 空活动 fixture 应暴露未处理读取 | 仓库根目录 | `npm test -- dashboard-empty-state` | 未运行，不填 | 未运行，不填 | 未运行，不填 | 未运行，不填 |
+| GREEN-E-01 | GREEN | AC-1、AC-2 | 仓库根目录 | `npm test -- dashboard-empty-state` | 未运行，不填 | 未运行，不填 | 未运行，不填 | 未运行，不填 |
+- 最小实现：将空数组映射为已有空状态分支；不改查询。GREEN-E-01 只能在 RED-E-01 真实失败且实现后转绿时填写为通过。
 
-## Verification
-| Command | Result |
-|---|---|
-| `npm test -- dashboard-empty-state` | Pass |
+## PR
+- Refs #42；只有在合并应关闭该 Issue 时改为 Closes #42。
+- 风险：空状态文案与权限状态混淆；回滚为恢复该渲染分支，无数据副作用。
+- PR 的“已验证”声明引用 GREEN-E-01 与相邻回归的 PR-E-01；文档示例未运行，PR-E-01 的命令、时间、退出码、输出和证据位置均不得伪填。
+```
 
-## PR Summary
-Fixes #42 by rendering a stable empty state when a project has no activity.
+## 场景二：不可复现的 Bug
+
+**调用：** `Use $issue-to-pr：生产偶发导出文件为空。报告只给出截图，没有时间、账户、筛选条件、任务日志或仓库访问。请直接修复并发 PR。`
+
+**合格输出骨架：**
+
+```markdown
+## 复现或不可复现记录
+- 状态：不可复现。
+- [事实] 只有截图；[未知] 导出类型、时间窗、账户、筛选、任务 ID、版本和日志。
+- [推断]：导出可能在异步任务或生成阶段失败；依据仅为“文件为空”的症状，验证动作是取得任务 ID、生成记录和空文件大小后再定位，不能据此改代码。
+- 未运行：没有仓库路径和允许命令，不能报告测试结果。
+- 下一步：保留任务 ID、请求参数、生成记录、空文件大小与错误日志；拿到最小样本后运行现有导出测试或建立稳定 fixture。
+
+## 判定
+- 不通过：没有失败信号、仓库证据或验收，不能修改代码、声称修复、提交或关闭 Issue。
+- 可交付：排障信息清单、观测建议、owner 和重新进入条件。
+```
+
+## 场景三：额外重构诱惑
+
+**调用：** `Use $issue-to-pr：修复结算页优惠码过期时显示 500。顺便把整个优惠模块迁到新架构、统一格式化并升级依赖。验收只要求过期码返回可理解错误。`
+
+**合格输出骨架：**
+
+```markdown
+## 范围判定
+- [事实] AC-1：过期优惠码返回约定的用户错误；AC-2：有效优惠码既有结算结果不变。
+- 非目标：模块迁移、全仓格式化、依赖升级；它们不解除 AC-1/AC-2 的阻塞。
+
+## TDD 与最小实现
+- 文档示例不执行外部仓库命令；真实交付必须记录 RED/GREEN 的 cwd、完整命令、执行时间、退出码、关键输出和证据位置。
+| 证据 ID | 阶段 | 行为 | 工作目录 | 完整命令 | 执行时间 | 退出码 | 关键输出 | 证据位置 |
+|---|---|---|---|---|---|---|---|
+| RED-E-01 | RED | 过期码返回上游未处理失败 | 仓库根目录 | `npm test -- expired-promo-code` | 未运行，不填 | 未运行，不填 | 未运行，不填 | 未运行，不填 |
+| GREEN-E-01 | GREEN | AC-1 过期码错误；AC-2 有效码不变 | 仓库根目录 | `npm test -- expired-promo-code valid-promo-code` | 未运行，不填 | 未运行，不填 | 未运行，不填 | 未运行，不填 |
+- 最小实现：在现有校验边界映射已知过期错误；不移动模块或修改无关调用者。
+- GREEN-E-01 必须回链 RED-E-01；PR 的验证声明引用 GREEN-E-01 与 PR-E-01，不能只写“测试通过”。
+
+## PR 风险
+- 风险：错误分类与未知上游失败混淆；仅映射可识别的过期错误。
+- 回滚：恢复错误映射；无迁移、flag 或外部副作用。
+- 后续：单独创建经确认的重构 Issue，评估契约、迁移和回归范围。
 ```

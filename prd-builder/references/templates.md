@@ -1,89 +1,111 @@
-# PRD Templates
+# PRD 模板
 
-## Full PRD
+## PRD 卡与证据账本
 
 ```markdown
-# PRD: [Product or Feature Name]
+# PRD：[名称]
 
-## Executive Summary
-- Problem:
-- Target user:
-- Proposed solution:
-- Business goal:
-- Success metric:
-- Recommended v1 scope:
+## PRD 卡
+- 要支持的决策：
+- 决策人、参与团队与截止时间：
+- 产品/业务目标：
+- 目标用户、分群与排除对象：
+- 使用情境与 JTBD：
+- 当前替代方案与可观察后果：
+- 已知限制：平台、容量、预算、合规、隐私、依赖：
+- 本轮范围：
+- [待确认] 会改变范围或上线决定的事项：
 
-## Context and Evidence
-| Item | Evidence | Source | Confidence |
-|---|---|---|---|
-| | | | High/Medium/Low |
-
-## Goals
-| Goal | Why it matters | Metric |
-|---|---|---|
-
-## Non-Goals
-| Non-goal | Why excluded |
-|---|---|
-
-## Users and Jobs
-| User segment | Job-to-be-done | Current workaround | Pain |
-|---|---|---|---|
-
-## Problem Statement
-[Who] needs [capability/outcome] because [pain/context]. Today they [workaround], which causes [cost/risk].
-
-## Requirements
-| ID | Requirement | Priority | Rationale | Acceptance Criteria |
-|---|---|---|---|---|
-| FR-1 | The user can... | Must | | Given/When/Then |
-
-## Non-Functional Requirements
-| Category | Requirement | Acceptance Criteria |
-|---|---|---|
-| Performance | | |
-| Security/Privacy | | |
-| Accessibility | | |
-| Reliability | | |
-
-## UX and Content Requirements
-| Surface | Required states | Content notes |
-|---|---|---|
-| | Default, empty, loading, error, success | |
-
-## Analytics
-| Event or Metric | Definition | Trigger | Owner |
-|---|---|---|---|
-
-## Dependencies
-| Dependency | Owner | Risk | Needed by |
-|---|---|---|---|
-
-## Risks and Mitigations
-| Risk | Likelihood | Impact | Mitigation | Decision owner |
-|---|---|---|---|---|
-
-## Rollout Plan
-- Internal test:
-- Beta or limited release:
-- General release:
-- Rollback trigger:
-
-## Open Questions
-| Question | Why it matters | Owner | Needed by |
-|---|---|---|---|
+## 证据与假设账本
+| 判断或输入 | 标签（`[事实]`/`[证据]`/`[假设]`/`[推断]`/`[待确认]`） | 来源、记录位置与日期 | 强/中/弱及限制 | 对本 PRD 的影响 | 下一步/负责人/时间 |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
 ```
 
-## Requirement Row Pattern
+## 问题、目标与范围
 
 ```markdown
-| FR-[n] | The system must [observable behavior] when [condition]. | Must/Should/Could | [User/business reason] | Given [state], when [action], then [result]. |
+## 问题陈述
+当 [用户/分群] 在 [情境] 想要 [JTBD/进展] 时，当前通过 [替代方案]，因此承担 [可观察成本、风险或机会损失]。
+
+## 目标与成功信号
+| 类型 | 要观察的结果 | 口径/时间窗/分群 | 当前基线 | 目标或决策阈值 | 负责人 |
+|---|---|---|---|---|---|
+| 结果指标 |  |  | `[待确认]` |  |  |
+| 过程指标 |  |  | `[待确认]` |  |  |
+| 护栏指标 |  |  | `[待确认]` |  |  |
+
+## 范围边界
+| 候选项 | 分类（MVP/后续候选/非目标） | 支持的核心结果或依赖 | 不纳入/延后的理由 | 替代处理或重审条件 | 决策人 |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
 ```
 
-## Success Metric Pattern
+## 需求与验收
 
 ```markdown
-| Metric | Baseline | Target | Measurement window | Instrumentation needed |
-|---|---:|---:|---|---|
-| Activation rate | Unknown | +10% relative | 14 days after launch | `feature_activated` event |
+## 功能需求
+| ID | 需求（前置条件、可观察行为、结果） | 优先级 | 证据/假设 | 依赖 | 状态 ID | 埋点 ID | 验收 ID |
+|---|---|---|---|---|---|---|---|
+| FR-1 | 在 [条件] 下，用户可以/系统必须 [行为]，并 [结果]。 | MVP |  |  | ST-1 | EV-1 | AC-1 |
+
+## 非功能需求
+| ID | 类别 | 可验证约束、测量点与阈值 | 适用范围 | 状态 ID | 埋点 ID | 验收 ID |
+|---|---|---|---|---|---|---|
+| NFR-1 | 性能/隐私/安全/可访问性/可靠性/兼容性 |  |  | 不适用：说明原因 | 不适用：说明原因 | AC-2 |
+
+## 状态覆盖
+| 状态 ID | 关联需求 ID | 流程或界面 | 默认 | 空 | 加载 | 错误与恢复 | 权限/资格 | 成功/完成 | 不适用原因 |
+|---|---|---|---|---|---|---|---|---|---|
+| ST-1 | FR-1 |  |  |  |  |  |  |  |  |
+
+## 验收标准
+| ID | 覆盖需求 | 场景 | Given | When | Then | 可观测证据 |
+|---|---|---|---|---|---|---|
+| AC-1 | FR-1 | 主路径/空/加载/错误/权限/成功 |  |  |  | 页面、接口、记录或事件 |
+| AC-2 | NFR-1 | 非功能约束 |  |  |  | 指标、日志、审计记录或辅助技术检查 |
+```
+
+## 埋点、交付条件与决策
+
+```markdown
+## 埋点与数据验证
+| 埋点 ID | 关联需求 ID | 事件/指标 | 触发时机 | 必要属性与口径 | 去重、失败或隐私处理 | 数据消费者与验证方法 | 负责人 |
+|---|---|---|---|---|---|---|---|
+| EV-1 | FR-1 |  |  |  |  |  |  |
+
+## 依赖
+| 依赖类别/名称 | 负责人 | 所需输入 | 最晚确认时间 | 阻塞影响 | 替代方案 |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
+
+## 风险
+| 风险 | 可能性 | 影响 | 预防与监控 | 触发阈值 | 应对/回滚负责人 |
+|---|---|---|---|---|---|
+|  |  |  |  |  |  |
+
+## 开放问题
+| 问题 | 为什么影响决策 | owner | 最晚确认时间 | 未解决时的默认处理 |
+|---|---|---|---|---|
+|  |  |  |  |  |
+
+## 决策日志
+| 日期 | 决策 | 备选项与取舍 | 依据（证据/假设） | 影响范围 | 决策人 | 重审条件 |
+|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |
+```
+
+## 条件草案：只有一句话想法时
+
+```markdown
+## 问题假设卡
+- 想法：
+- [假设] 候选用户、情境与 JTBD：
+- [假设] 候选问题与当前替代方案：
+- [待确认] 需要的行为、数据或业务证据：
+- 最小可验证结果：
+- 推荐 MVP：只包含验证该结果不可缺少的流程。
+- 后续候选：
+- 非目标：
+- 下一步：方法、负责人、通过/停止条件与时间。
 ```

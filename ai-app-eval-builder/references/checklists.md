@@ -1,35 +1,61 @@
-# AI Eval Checklist
+# AI 应用评测检查清单
 
-## Eval Design
+## 目标、能力与风险
 
-- The eval objective maps to a product or release decision.
-- Quality dimensions are decomposed and observable.
-- Dataset schema is defined.
-- Dataset slices cover happy path, edge cases, adversarial cases, and production failures.
-- Each case has expected behavior or rubric.
-- Graders have thresholds.
-- Automated checks and human review are separated.
-- Failure taxonomy maps to remediation.
-- Regression workflow names baseline and candidate.
+- [ ] 发布、灰度、回滚或继续实验的具体决定已写明。
+- [ ] 每项 `C-*` 都有用户可观察成功、`R-*` 失败后果、风险等级和关键切片。
+- [ ] 安全、隐私、资金、权限、错误行动、时效、拒答和不可恢复副作用已判断适用或不适用。
+- [ ] 事实、推断、未知与停止条件没有混写；未知没有被任意阈值掩盖。
 
-## RAG-Specific Checks
+## 数据、代表性与泄漏
 
-- Retrieval relevance is measured separately from answer quality.
-- Citation accuracy is checked.
-- Unsupported claims are counted.
-- Missing-context behavior is tested.
+- [ ] 数据集有冻结日期、dataset version、owner 和黄金/生产失败/困难/对抗四类覆盖或明确缺口。
+- [ ] 每个 `D-*` 有来源、采样窗口、预期行为/证据、切片、风险、隐私/许可和纳入理由。
+- [ ] 覆盖表说明真实分布或可信代理、目标比例、未代表群体和补样 owner。
+- [ ] 训练、few-shot、prompt、索引、开发和评测之间检查过文档族、会话、用户、时间、模板和语义近重复泄漏。
+- [ ] 近重复 case 聚类后只进入一个数据切分；检测方法、阈值和人工复核已记录。
+- [ ] 生产样本已最小化、脱敏、审批和设置保留期；未经许可的原始 trace 未进入评测材料。
 
-## Agent-Specific Checks
+## Grader、rubric 与校准
 
-- Tool selection is evaluated.
-- Tool arguments are evaluated.
-- Step count, loops, latency, and cost are tracked.
-- Unsafe or unauthorized tool use is tested.
+- [ ] schema、格式、枚举、引用 ID、工具选择/参数/权限、预算和终止先使用适用的确定性检查。
+- [ ] 每个 `G-*` 有输入、版本、等级、可观察通过边界、失败代码、正反例和升级规则。
+- [ ] 开放式质量没有只靠准确率、字符串匹配或单一主观总分。
+- [ ] 人工评审使用冻结校准集、独立盲评、分歧记录、裁决和复训/重校准条件。
+- [ ] LLM judge 固定模型、提示词、参数和结构化输出版本，并与人工金标比较。
+- [ ] LLM judge 已处理顺序、位置、长度和自偏：匿名候选、随机/反转 A/B、长度控制、同源身份隔离、反转一致性检查。
 
-## Red Flags
+## Failure-* 分类与处置
 
-- The plan only asks humans "is this good?"
-- The dataset has only happy paths.
-- The rubric is subjective without examples.
-- The eval has no release threshold.
-- Failures cannot be traced to likely fixes.
+- [ ] 每种可行动失败都有稳定 `Failure-<DOMAIN>-<CAUSE>` 代码；已发布代码没有改义、复用或随版本重编号。
+- [ ] 每项 `Failure-*` 都有定义及纳入/排除边界、RAG/Agent/其他层、受影响切片、频率/严重性、可能修复和责任 owner。
+- [ ] 每项 `Failure-*` 都关联经隐私处理的生产样本 `D-*` 或明确 `GAP-*`，并关联冻结回归 case `D-*`。
+- [ ] 每个 `G-*` fail label 映射一个 `Failure-*`；每条失败 `E-*` case/trace 回链同一代码，无法分类项进入带 owner/截止条件的 `Failure-OTHER-UNCLASSIFIED`。
+- [ ] 按 `Failure-*` 报告 baseline/candidate 频率、严重性和切片分布；总体分不能抵消高风险失败代码。
+
+## RAG、Agent 与运行质量
+
+- [ ] RAG 分开评测必要证据召回/排序、证据覆盖、答案忠实性、完整性、引用和无证据拒答。
+- [ ] Agent trace 记录状态、候选和实际工具选择、参数、返回、权限、重试、循环/终止、最终副作用和补偿。
+- [ ] 最终答案高分不会覆盖 RAG 关键证据漏失、伪引用、Agent 越权、危险参数或循环。
+- [ ] 每次 `E-*` 记录 baseline/candidate/dataset/grader、模型/提示词、retrieval/index、工具 schema/权限、环境、seed、时间和完整配置。
+- [ ] 每次失败 `E-*` 同时记录 `G-*` 判定、`Failure-*`、case/trace 和关联生产/回归 `D-*`。
+- [ ] 质量以外还记录总/token/工具成本、p50/p95/p99 延迟、超时、错误、重试和 run-to-run 稳定性。
+
+## 门禁与闭环
+
+- [ ] 硬约束、关键切片下限、总体非回归、成本/延迟/稳定性预算和人工复核均有独立 Gate、样本量和 owner。
+- [ ] 总体平均仅作摘要，不能抵消任何高风险切片、硬约束或置信不足。
+- [ ] baseline、candidate、dataset、grader/rubric 版本可比较；任一不明或变化未登记时结论已降级。
+- [ ] 发布结论回链真实 `E-*`，并写出灰度、监控、告警、暂停/回滚与责任人。
+- [ ] 线上失败、人工升级、反馈、漂移和成功对照有采样窗口、隐私审查、去重、标注、版本冻结和下轮重跑计划。
+
+## 红旗
+
+- [ ] 只有平均准确率、单一“质量分”或 demo 结果。
+- [ ] 测试集只有理想黄金样本，或生产失败未经脱敏/去重直接混入。
+- [ ] judge 未校准，却以其偏好作为发布门禁。
+- [ ] RAG 只有最终答案分，或 Agent 只有最终文本没有轨迹/权限证据。
+- [ ] grader 或运行结果只写自由文本“失败”，没有稳定 `Failure-*`、owner、生产样本和回归 case。
+- [ ] “质量更好”但成本、p95 延迟、错误率或稳定性未测。
+- [ ] 线上问题没有回流路径，或原始生产数据被无控制地复制进评测。

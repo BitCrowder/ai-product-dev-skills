@@ -1,11 +1,30 @@
-# Codebase Onboarding Checklist
+# 代码库入门检查清单
 
-- Stack and package manager are identified.
-- Run/build/test commands are listed.
-- Main entry points are named.
-- Key directories are explained by responsibility.
-- Config and environment variables are mentioned.
-- Tests and coverage shape are explained.
-- External services and data stores are identified when visible.
-- Risks are grounded in files or missing evidence.
-- The brief recommends concrete next steps.
+## 范围与阅读预算
+
+- [ ] 任务要支持的决定、非目标、入口线索和停止条件均已写明。
+- [ ] 阅读深度与任务匹配；局部功能没有无目的遍历完整仓库。
+- [ ] 每次扩展范围都说明被哪个调用链、契约、失败或风险证据阻断。
+- [ ] 生成物、依赖目录、二进制、无关历史和排除区域均没有被当作架构证据。
+
+## 地图与证据
+
+- [ ] 目录责任、入口、关键数据/控制流、配置和测试拓扑能连成当前任务路径。
+- [ ] 每个事实有路径、命令或用户材料证据；推测和未知显式分栏。
+- [ ] 风险热区包含影响、证据、置信度和下一步检查，而非抽象形容词。
+- [ ] 下一步阅读顺序按减少当前不确定性的价值排序，并各有停止条件。
+
+## 命令、配置与秘密
+
+- [ ] 每条命令有目的、工作目录、前提、三态状态和阻断原因；`[未运行]` 的执行时间、退出码、关键输出摘要和可定位证据均写“未运行，不填”。
+- [ ] 每条 `[已运行-通过]` 或 `[已运行-失败]` 命令都有工作目录、执行时间、退出码、脱敏关键输出和可定位证据（日志路径、终端记录，或 CI URL 加 job step）。
+- [ ] 未运行或失败命令没有被描述为可用、通过或已验证；没有证据定位的“已运行”已降级为 `[未运行]`。
+- [ ] 配置只记录键名、来源、环境差异和验证状态；没有秘密值、令牌、私钥、连接串或生产数据。
+- [ ] 无法启动时已记录首个阻断前提，并转向对应配置/容器/CI 证据而非反复猜测。
+
+## 测试与交接
+
+- [ ] 已说明单元、集成、端到端、契约或其他可见测试层级及其关键路径。
+- [ ] 已说明 fixture/mock/依赖服务、CI 触发点和测试缺口；没有把目录名当覆盖证明。
+- [ ] 13 项模板均服务于任务，且最小交接足以让下一位协作者继续。
+- [ ] 已用与任务相近的 `examples.md` 场景检查范围、证据和命令状态。

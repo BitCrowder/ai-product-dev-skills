@@ -1,4 +1,4 @@
 interface:
   display_name: "原型说明生成器"
-  short_description: "把产品想法转成原型和交互说明"
-  default_prompt: "Use $prototype-brief-builder：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "把产品意图转成可验证、可交接的原型说明"
+  default_prompt: "Use $prototype-brief-builder：请把这份需求转成按目的、保真度和接收方区分的原型说明。"

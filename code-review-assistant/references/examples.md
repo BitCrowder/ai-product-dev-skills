@@ -1,13 +1,84 @@
-# Code Review Example
+# 证据驱动代码审查示例
 
-```text
-Use $code-review-assistant to review this PR diff.
-```
+以下是文档级示例，不在外部业务仓库运行命令、虚构测试结果或宣称真实 PR 已通过。
+
+## 场景一：完整 PR diff 包含接口变更
+
+**调用：** `Use $code-review-assistant：审查 PR #184。需求是将 GET /v1/projects 的 archived 字段改名为 isArchived，移动端客户端仍在兼容窗口内。已提供 base/head 完整 diff、路由、序列化器、Web 调用方和 API 契约测试。`
+
+**合格输出骨架：**
 
 ```markdown
-### High: Empty results crash search page
-File/line: `src/search.tsx:48`
-Issue: code reads `results[0].title` before checking length.
-Impact: users with no matches see a runtime crash.
-Suggested fix: render empty state before accessing first result.
+# 审查卡：PR #184
+- 审查范围：完整 base/head diff；路由、序列化器、Web 调用方和契约测试。
+- [事实]：请求明确要求新字段 `isArchived`，且移动端旧客户端仍在兼容窗口。
+- [事实]：序列化器删除 `archived`，路由直接返回该对象；提供的移动端消费者仍读取 `archived`。
+- 已读上下文：API 版本中间件、Web/移动端消费者与响应 schema 测试。
+
+## 需求/契约对照
+| RC-ID | 需求或公开契约 | 变更与相邻上下文 | 状态 |
+|---|---|---|---|
+| RC-01 | 兼容窗口内旧客户端仍可读取归档状态 | 响应只保留 `isArchived`；移动端仍读取 `archived` | 风险 |
+
+## 审查发现
+### F-01 [P1 高] 兼容窗口内移除了移动端仍消费的响应字段
+- 置信度：高；需求、完整 diff 与移动端消费者三者一致。
+- 精确定位：`api/serializers/project.ts:27`；消费者：`mobile/projects/ProjectRow.tsx:44`。
+- 触发条件：兼容窗口内的移动端客户端请求任意项目列表。
+- 影响：归档状态变为未定义，客户端可能把归档项目当作可编辑；影响所有未升级客户端。
+- 证据：RC-01；序列化器删除旧字段，调用方仍读取旧字段，契约测试只覆盖新字段。
+- 最小修复方向：在兼容窗口同时输出 `archived` 与 `isArchived`，或经版本协商保留旧 schema；补旧客户端响应契约测试。
+
+## 审查覆盖与测试缺口
+- 测试质量：新字段存在测试，但缺少旧 schema/移动端消费者对照；补为合并前动作。
+
+## 结论
+- 状态：不通过；修复 F-01 并验证兼容契约后再审。
+```
+
+## 场景二：只有单个文件，没有需求或测试结果
+
+**调用：** `Use $code-review-assistant：只审查这个 OrderService 文件。没有 PR 描述、完整 diff、调用方、测试结果或运行环境。`
+
+**合格输出骨架：**
+
+```markdown
+# 审查卡：OrderService 单文件
+- 审查范围：仅提供的 `src/orders/OrderService.ts`；没有 base/head 或完整 diff。
+- [未知]：预期订单状态机、调用方重试语义、权限来源、数据库唯一约束和测试命令。
+- 停止条件：不能判断删除路径、迁移、消费者或真实并发行为；不声明“可合并”。
+
+## 审查发现
+- 在已读范围内未发现有证据的缺陷；没有将“可能存在竞态”写成 F-*，因为没有共享资源、调用顺序或不变量证据。
+
+## 信息缺口
+| GAP-ID | 缺失材料 | 阻断的结论 | 最小补充/验证动作 |
+|---|---|---|---|
+| GAP-01 | 完整 base/head diff 与需求 | 无法判断行为是否回归 | 提供 PR 描述、验收与完整 diff |
+| GAP-02 | 调用方、数据库约束与并发模型 | 无法判断重复创建是否受保护 | 阅读创建入口、唯一索引和重试逻辑 |
+| GAP-03 | 相邻测试与实际运行结果 | 无法判断风险已覆盖 | 提供测试路径及命令/退出码 |
+
+## 结论
+- 状态：有条件通过；仅表示单文件静态阅读未发现有证据的缺陷，不是对 PR 或生产行为的批准。
+```
+
+## 场景三：要求只给表扬、不报告问题
+
+**调用：** `Use $code-review-assistant：请只总结这个支付回调 PR 的优点，不要提问题。diff 显示 handler 在写入支付记录前执行 provider charge；相邻代码没有幂等键或事务，需求要求同一 webhook 事件最多扣款一次。`
+
+**合格输出骨架：**
+
+```markdown
+## 审查发现
+### F-01 [P0 阻塞] 重复 webhook 可在幂等保护前重复扣款
+- 置信度：高；需求给出“同一事件最多扣款一次”，diff 中 charge 先于写入，且相邻代码没有事件去重/事务保护。
+- 精确定位：`payments/webhook-handler.ts:61`。
+- 触发条件：provider 因超时或网络重试投递同一 webhook 两次，第二次在首次写入可见前到达。
+- 影响：同一客户可能被重复扣款；存在财务、退款、支持和审计风险，不能以普通重试恢复。
+- 证据：幂等需求、调用顺序和缺少事件去重边界。
+- 最小修复方向：以 provider 事件 ID 在事务/原子去重边界建立已处理记录，再执行扣款/状态更新；补并发重复事件的一次副作用测试。
+
+## 结论
+- 状态：不通过；用户偏好不改变对可复现高风险的报告责任。
+- 可选正面观察：handler 将 provider 错误映射到现有错误类型；这不抵消 F-01。
 ```

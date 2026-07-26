@@ -1,4 +1,4 @@
 interface:
   display_name: "安全重构助手"
-  short_description: "安全地小步重构并保持行为不变"
-  default_prompt: "Use $refactor-with-safety：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "用行为、契约、性能、兼容、回滚与小步守住安全重构边界"
+  default_prompt: "Use $refactor-with-safety：基于重构目标、行为、契约、依赖、性能和回滚限制，生成分轨小步、验证证据与停止条件。"

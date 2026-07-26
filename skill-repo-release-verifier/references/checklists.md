@@ -1,39 +1,33 @@
-# Release Verification Checklist
+# 发布验证检查清单
 
-## Local Validation
+## 输入完整性
 
-- Every folder with `SKILL.md` passes `quick_validate.py`.
-- `SKILL.md` frontmatter contains only `name` and `description`.
-- No generated TODO/template residue remains.
-- Expected `agents/openai.yaml` files exist.
-- Expected reference files exist.
-- Chinese discoverability requirements are satisfied when required.
+- [ ] 仓库根目录、`OWNER/REPO`、预期默认分支、base/候选提交和发布范围已明确。
+- [ ] 已确认是否允许 push；API 回退已有有效 GitHub 身份和写入权限。
+- [ ] 必需的 README、中文索引、验证报告和目标 Skill 路径已列出。
 
-## Git Hygiene
+## 本地结构与证据
 
-- `git status --short --branch` is inspected.
-- Only intended files are staged.
-- Commit message describes the change.
-- Unrelated user changes are not reverted.
+- [ ] `validate_skill_repo.py` 默认摘要通过，或已保存 `--json` 的问题对象。
+- [ ] 每个 Skill 通过 `quick_validate.py`。
+- [ ] V2 文件、13 章顺序、frontmatter、六类清单、链接和高置信模板残留均无问题。
+- [ ] `git diff --check` 通过；命令、时间和结果可复核。
 
-## GitHub Sync
+## Git 范围与交接
 
-- Normal push succeeded, or API fallback uploaded the changed files.
-- API fallback used `sha` for existing files and no `sha` for new files.
-- Files already identical on remote were skipped where possible.
+- [ ] 已检查 `git status --short --branch` 和 base 到候选的文件列表。
+- [ ] 暂存区只含批准路径；无关用户改动未还原、未暂存。
+- [ ] 提交消息、完整候选 SHA 和统计信息已记录。
 
-## Remote Verification
+## 同步与远端
 
-- Repository is the expected `OWNER/REPO`.
-- Visibility is correct.
-- Default branch is correct.
-- Remote file tree includes new or updated skill files.
-- Remote file count is plausible.
-- Required catalog or docs files exist.
+- [ ] 已先尝试普通 push，或记录其失败类别与退出状态。
+- [ ] API 回退仅在目标分支/权限确认后执行；现有文件带远端 SHA，新文件不带 SHA，相同 blob 被跳过。
+- [ ] 已读取仓库可见性、实际默认分支、远端分支 SHA 和递归文件树。
+- [ ] 树中存在 README、中文索引、验证报告和本次所有目标路径。
 
-## Final Report
+## 判定
 
-- Include validation evidence.
-- Include sync method.
-- Include remote verification evidence.
-- Include unresolved risks, if any.
+- **通过**：本地通过、提交范围准确、同步命令成功，且远端默认分支/SHA/文件树均已实际核验。
+- **有条件通过**：本地通过但远端检查尚未执行；必须明确缺少的权限、网络或 owner 决策，不能称已发布。
+- **不通过**：本地问题、范围异常、同步失败、远端 SHA/树不匹配或远端查询失败。

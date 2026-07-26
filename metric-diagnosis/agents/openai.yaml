@@ -1,4 +1,4 @@
 interface:
   display_name: "产品指标诊断器"
-  short_description: "诊断转化、留存、漏斗和指标异常"
-  default_prompt: "Use $metric-diagnosis：请根据我的问题生成结构化、可执行的结果。"
+  short_description: "先核验口径与数据质量，再拆解指标异常并给出验证路径"
+  default_prompt: "Use $metric-diagnosis：诊断这项指标变化，先检查口径、完整性和延迟，再给出分群、漏斗、假设与验证查询。"

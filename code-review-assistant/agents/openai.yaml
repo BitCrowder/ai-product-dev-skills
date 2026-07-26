@@ -1,4 +1,4 @@
 interface:
-  display_name: "代码审查助手"
-  short_description: "审查代码中的 Bug、风险和测试缺口"
-  default_prompt: "Use $code-review-assistant：请根据我的问题生成结构化、可执行的结果。"
+  display_name: "证据驱动代码审查"
+  short_description: "审查 PR 风险，交付可定位、可复现的发现与测试缺口"
+  default_prompt: "Use $code-review-assistant：审查这组变更，按严重度、置信度、路径行号、触发条件、影响、证据和最小修复方向输出发现。"

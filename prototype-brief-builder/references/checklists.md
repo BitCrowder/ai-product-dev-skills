@@ -1,27 +1,57 @@
-# Prototype Brief Checklist
+# 原型说明检查清单
 
-## Flow Quality
+## 范围与保真度
 
-- The prototype purpose and fidelity are explicit.
-- The target user and scenario are named.
-- The primary flow has an entry and successful exit.
-- Alternate or failure flows are listed when important.
-- Every screen has a purpose.
-- Screen transitions are described.
+- 原型目的、要改变的决定、目标用户、核心任务和成功退出明确。
+- 保真度与目的相称，并说明哪些区域必须真实、哪些刻意不做。
+- 每个页面/弹层有任务、决策、反馈或恢复的存在理由。
+- 主流程含入口、用户动作、系统反馈、分支、恢复与退出；未验证功能不混入范围。
+- 信息不足时降级为探索卡，未知项、影响与补数动作可见。
 
-## Handoff Quality
+## 状态、组件与内容
 
-- Components and variants are named.
-- Empty, loading, error, success, and permission states are considered.
-- Content requirements are specific.
-- Responsive behavior is described.
-- Accessibility expectations are included when relevant.
-- Analytics events are included if the prototype supports product validation.
+- 高风险流程覆盖默认、加载、空、错误、成功、禁用、权限/未登录、长内容和部分数据中真正相关的状态。
+- 每个状态有触发、用户可见反馈、下一步或恢复动作；不是只有状态名称。
+- 每个组件表均填写变体与状态、触发/校验/恢复、数据与内容规则、极值与无障碍和行为 ID；不可只给名称和状态。
+- 交给编程代理时，每个页面/组件都有 `P-*`/`C-*` ID，并通过 `行为 ID` 追溯到 `B-*` 行。
+- 每个 `B-*` 行都有当前状态、用户/系统事件、守卫/前置条件、下一状态、明确路由目标、副作用、接口请求、成功响应、失败响应和失败恢复；没有接口时明确写“无接口”。
+- 内容注明真实、脱敏或受控合成；字段来源、长度、格式、空值、权限差异与不可编造规则明确。
+- 没有 lorem ipsum、泛化身份、随机金额或“稍后补充内容”掩盖产品逻辑。
 
-## Red Flags
+## 跨端、无障碍与观测
 
-- The brief says "make it modern" without structure.
-- Screens are listed but flow is missing.
-- States are ignored.
-- The brief leaves all copy as placeholder text.
-- The brief does not say what should be learned from the prototype.
+- 目标设备/宽度、布局重排、导航变化、触控目标和内容优先级可验收。
+- 键盘顺序、可见焦点、语义/标签、错误关联、状态播报、对比度和减少动态效果均按风险覆盖。
+- 关键事件有名称、触发时刻、最小属性、用途和隐私边界；研究原型明确观察点与任务完成/放弃记录。
+
+## 设计师交接
+
+- 研究问题、受试任务、场景和不引导的任务文案已给出。
+- 观察记录能记录完成/放弃、错误、犹豫点、原话和时间，并明确隐私边界。
+- 可点击路径、状态优先级、页面理由、观察点和评审标准可让设计师直接执行。
+
+## Figma 交接
+
+- 页面树、页面/图层命名、原型起点和评审入口已给出。
+- 组件、变体、变量、内容样式和使用边界明确。
+- 原型连接、分支、返回路径、覆盖层/焦点处理与评审注释可复现。
+
+## 编程代理交接
+
+- 编程代理交接含路由、组件契约、`P-*`/`C-*` 到 `B-*` 的追溯、数据/内容、响应式、无障碍、埋点、技术约束和验收。
+- 接口请求、成功/失败响应、业务结果、缓存/事件副作用、失败恢复与明确路由目标不由代理猜测。
+- 会显示保留优惠时，预览成功响应定义 `offerId`、`status`、展示内容/权益、`expiresAt`、`eligibility` 和所有后续请求所需字段；每个字段的来源明确。
+- “刷新优惠”必须是独立 `B-*`：说明当前/下一状态、请求、成功/失败响应、保持或跳转路由和可执行重试或继续取消路径。
+- 每个完整示例都列出开放问题，或明确写“无开放问题”及其适用边界。
+- 接收方不需要猜测的产品规则已写明；尚未确认的规则没有被伪装成事实。
+
+## 红旗与修正
+
+| 红旗 | 修正 |
+|---|---|
+| “现代一点”“高保真一点” | 回到要改变的决定和关键任务，重新选择保真度。 |
+| 页面很多但没有可测试任务 | 删除、合并或为每页补写存在理由和流内位置。 |
+| 正常路径很完整，失败时没有出口 | 补齐阻断任务的状态、提示和恢复。 |
+| 用占位内容躲开密度、权限或数据问题 | 使用已授权真实样本或说明来源的受控合成样本。 |
+| 把 Figma 链接或截图当作代码说明 | 补齐组件、状态、数据、约束与验收，禁止代理自行发明。 |
+| 只写“接受优惠后成功” | 写明业务结果、请求/响应、下一状态、明确路由目标和失败重试。 |

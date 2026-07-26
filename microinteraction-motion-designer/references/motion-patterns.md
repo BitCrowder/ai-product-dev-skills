@@ -1,133 +1,71 @@
-# Motion Patterns
+# 动效模式
 
-Use these patterns to turn product intent into concrete UI motion. Prefer the smallest pattern that communicates the state change.
+先选用户需要理解的关系，再选最小动效。所有数值是可复测起点，不是脱离平台、距离和任务频率的硬编码 token。
 
-## 1. Staggered List Entrance
+## 1. 首屏列表进入
 
-**Use when:** a list, feed, card group, menu, search results, or onboarding steps appear.
+**目的：** 建立扫描顺序，不延迟阅读或操作。
 
-**Behavior:** items enter one by one with a short delay, usually from slight vertical offset and low opacity to final position and full opacity.
+**适用：** 首次加载的结果、卡片组、菜单或步骤，且最终布局已知。
 
-**Why it works:** creates rhythm and order, guiding the user's eye naturally downward.
+**参数起点：** 仅首屏 `4-8` 项；`opacity: 0 -> 1`、`translateY: 8-12px -> 0`、每项 `160-220ms`、`24-48ms` stagger、`cubic-bezier(0.2, 0, 0, 1)`。总 stagger 不超过 `280ms`。
 
-**Typical spec:** 180-280ms per item, 30-70ms stagger, `ease-out`, `opacity: 0 -> 1`, `translateY(8-16px) -> 0`.
+**中断与降级：** 刷新、筛选、离屏、虚拟化回收或用户开始滚动时取消未开始项；减少动态和低端档即时显示或只淡入整个容器。不在滚动追加、回访或长列表上重放。
 
-**Avoid:** long delays on large lists; animate only first visible items or use virtualization-safe entrance.
+## 2. 按压与提交确认
 
-## 2. Press Ripple
+**目的：** 让用户立刻知道输入被接收，并区分 pending、成功和失败。
 
-**Use when:** buttons, list rows, cards, tabs, or touch targets need immediate feedback.
+**参数起点：** 按压 `80-120ms` 的背景/opacity 或 `scale(0.98)`；提交后进入明确 pending，成功状态 `160-200ms` 的图标/颜色切换。不要让装饰动画等待网络。
 
-**Behavior:** a subtle circular wave expands from the press point or element center while fading out.
+**中断与降级：** 重复点击由状态守卫处理；请求取消或失败恢复可操作控件和错误文案。减少动态保留即时状态、文本和读屏播报。
 
-**Why it works:** tells the user the tap/click was recognized.
+## 3. 同级切换
 
-**Typical spec:** 250-450ms, `ease-out`, scale `0 -> 1`, opacity `0.18 -> 0`.
+**目的：** 表明内容已变，但用户仍处于同一信息层级。
 
-**Avoid:** high-contrast ripples on premium minimalist UIs; prefer a quieter pressed-state scale or background tint.
+**适用：** Tab、筛选、日期段或同一容器中的视图切换。
 
-## 3. Skeleton Shimmer
+**参数起点：** 指示条 `180-220ms`，内容交叉淡入 `160-220ms`，最大 `4-12px` 的方向性位移；方向与用户选择一致。
 
-**Use when:** content takes time to load and the final layout is predictable.
+**中断与降级：** 快速切换取消旧目标，从当前 presentation value 进入最新 Tab；减少动态取消位移并即时更新选中语义。
 
-**Behavior:** show gray placeholders with a soft highlight moving across them.
+## 4. 层级导航与覆盖层
 
-**Why it works:** reduces waiting anxiety and indicates content is coming.
+**目的：** 区分进入下级、返回上级和在当前上下文上打开覆盖层。
 
-**Typical spec:** 1000-1600ms loop, low-contrast gradient, no layout shift when real content arrives.
+**参数起点：** 下级/返回 `220-320ms` 的互为镜像方向；弹层/抽屉 `180-280ms`，遮罩 opacity 与表面共享进度。页面与覆盖层不可混用。
 
-**Avoid:** using shimmer for very fast loads, unpredictable layouts, or long-running background tasks where progress is more useful.
+**中断与降级：** 路由变化、返回手势和卸载取消旧控制器；减少动态直接完成路由/焦点转移，不遗失进入来源或弹层焦点。
 
-## 4. Sliding Tabs
+## 5. 状态 morph 与加载替换
 
-**Use when:** tab selection changes within the same level of navigation.
+**目的：** 让同一对象的 pending、成功、失败、禁用或完成看起来是连续状态，而不是无关元素替换。
 
-**Behavior:** the active indicator slides with the finger or click transition; content can crossfade or slide slightly in the same direction.
+**参数起点：** `160-240ms` 的颜色、图标交叉淡入和轻微 opacity；骨架只在可见且加载超过短暂阈值时出现，shimmer `1200-1600ms`，加载结束立即停止。
 
-**Why it works:** preserves continuity and clearly shows the current category.
+**中断与降级：** 数据替换、请求取消或错误时进入最新状态；减少动态使用静态骨架和即时内容替换，仍显示进度/错误信息。
 
-**Typical spec:** indicator 180-260ms, content 160-220ms, `ease-out` or spring with low bounce.
+## 6. 直接操控与吸附
 
-**Avoid:** making content move in the opposite direction from the tab or animating every internal element.
+**目的：** 让对象与手指/指针保持一一对应，并清楚表示可到达边界。
 
-## 5. Crossfade or Dissolve
+**参数起点：** 拖动时逐帧映射位置；释放后按位置、速度和阈值选择 snap point。先指定目标运行时/库/API 与求解器语义。例如 Motion 的 `animate(..., { type: "spring" })` 使用该库的数值 spring 配置：对 `translateY`，`velocity` 为 `px/s`，目标、`restDelta` 为 `px`，`restSpeed` 为 `px/s`。保守起点为 `stiffness: 260`、`damping: 28`、`mass: 1`、`restDelta: 0.5px`、`restSpeed: 5px/s`、最大 settle `420ms`；初速度必须填测得或计算出的实际值，例如 `-1200px/s`，不能留占位。
 
-**Use when:** two pieces of content occupy the same position and one replaces the other.
+**跨平台：** 这些数值只属于上述 Motion API 语义。迁移到使用 `dampingRatio`、响应时长或速度向量的 API 时，先写字段映射，再针对同一目标位置、最大 settle 时间和可接受 overshoot 重新调参；没有一对一映射就不复制 `stiffness/damping/mass`。
 
-**Behavior:** outgoing content fades out while incoming content fades in, sometimes with tiny scale or blur change.
+**中断与降级：** `pointercancel` 回最后稳定 snap point；冲突手势有明确优先级。减少动态直接切至计算出的 snap point；不能把拖动改成没有反馈的点击。
 
-**Why it works:** avoids abrupt visual jumps.
+## 7. 性能与全页边界
 
-**Typical spec:** 150-240ms, overlap 40-80ms, opacity crossfade, optional scale `0.98 -> 1`.
+**目的：** 在用户可感知的关键关系中使用动效，而不把整个页面变成持续运行的演示。
 
-**Avoid:** crossfading unrelated navigation levels where a push transition better communicates hierarchy.
+**规则：** 先试点一个任务和一处层级关系；避免每页 hero、滚动视差、模糊、无限循环和大量并行动画。优先 `transform`/`opacity`，使用可取消的 rAF/观察器，离屏或完成后停止。
 
-## 6. Scroll-Linked Transformation
+**低端档：** 取消 stagger、filter、阴影、连续滚动计算和非必要过渡；只保留即时状态或一个关键 opacity/transform 提示。降级后必须还能理解状态、完成任务并获得错误恢复。
 
-**Use when:** scrolling should reveal more content or compress persistent UI.
+**性能协议（产品基线/待验证）：** 在交互作用域用 rAF 时间戳或目标平台帧指标采样；以最近 `12` 帧中至少 `3` 帧大于 `20ms` 作为初始降级候选。只在 transition 完成、稳定 snap point 或下一次交互前从 `pending` 切到 `low`，不在拖拽中跳档。
 
-**Behavior:** headers shrink, titles collapse, background blur appears, or supporting elements fade as the page scrolls.
+**可达恢复：** 选择 `low` 状态持续低频探针，而不是依赖未来手势。状态为 `full -> pending-low -> low-cooling -> low-sampling -> restore-pending -> full`：提交 low 后，应用可见/前台时每 `250ms` 调度连续两个 rAF，只采集两个 rAF 的间隔；无交互仍继续。累计 `5s` 前台可见冷却后，两个连续 `60` 样本窗口均无超过 `20ms` 的帧才 `restore-pending`。新 long frame 重置窗口并重启冷却；只在 idle、transition 完成或稳定 snap point 恢复 full。
 
-**Why it works:** gives content more room while preserving orientation.
-
-**Typical spec:** map scroll range to transform/opacity; clamp values; keep motion tied to scroll position.
-
-**Avoid:** scroll effects that fight user control, hide navigation too early, or cause jank.
-
-## 7. Spring Drag
-
-**Use when:** bottom sheets, drawers, cards, sliders, or draggable panels move with direct manipulation.
-
-**Behavior:** the surface follows the gesture, resists bounds, then springs to the nearest snap point.
-
-**Why it works:** creates a physical, high-quality feeling and clarifies the allowed range.
-
-**Typical spec:** snap points, rubber-band resistance outside bounds, spring stiffness/damping, velocity-aware release.
-
-**Avoid:** panels that stop rigidly, overshoot too far, or lack clear snap positions.
-
-## 8. Chart Growth
-
-**Use when:** bars, progress, metrics, or dashboards enter or update.
-
-**Behavior:** values animate from baseline or previous value to target; labels count up in sync.
-
-**Why it works:** makes data change more intuitive and alive.
-
-**Typical spec:** 500-900ms, stagger bars 40-80ms, `ease-out`; count numbers over the same duration.
-
-**Avoid:** replaying data animation every time the user returns to the page; animate on first reveal or meaningful update.
-
-## 9. Push Transition
-
-**Use when:** navigating into a detail page or deeper hierarchy.
-
-**Behavior:** new page slides in from the side while previous page moves out or recedes in the opposite direction.
-
-**Why it works:** communicates page hierarchy and direction.
-
-**Typical spec:** 220-350ms, direction matches navigation model; support back gesture.
-
-**Avoid:** using push for same-level tab switches or modal overlays.
-
-## 10. State Morph
-
-**Use when:** the same component changes state, such as save to saved, follow to following, collapsed to expanded, or pending to complete.
-
-**Behavior:** color, icon, shape, label, and size transition continuously instead of swapping abruptly.
-
-**Why it works:** lets the user perceive the state change as one continuous object.
-
-**Typical spec:** 160-280ms, icon morph or crossfade, background/color transition, optional subtle scale.
-
-**Avoid:** morphing unrelated icons that become confusing; use a short crossfade when shapes are too different.
-
-## Easing Guidance
-
-- Use `ease-out` for entrances and feedback.
-- Use `ease-in` for exits.
-- Use `ease-in-out` for same-level transitions.
-- Use spring motion for direct manipulation and snap-back.
-- Add "弹簧阻尼感" by increasing damping enough to avoid cartoon bounce.
-- Add "先快后慢" with strong ease-out: fast start, gentle settle.
-- Add "微震颤" only for validation errors or playful confirmations, never for core reading.
+**暂停与测试：** document hidden/app background 时暂停并清理 timeout/rAF/平台采样器，停止冷却并重置恢复窗口；回前台后保持 low，从剩余冷却和新样本继续。卸载或减少动态接管也清理所有句柄和监听器。用假时钟、可控 rAF 依次输入 `5s` 可见时间和 `120` 个干净样本，断言先到 `restore-pending`，再在稳定边界到 `full`；hidden 后的部分窗口不得计入。

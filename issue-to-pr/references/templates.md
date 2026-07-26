@@ -1,61 +1,87 @@
-# Issue-To-PR Templates
+# Issue-To-PR 模板
 
-## Issue Triage
+## 1. Issue 可执行性卡
 
 ```markdown
-## Issue Understanding
-- Source:
-- Type:
-- Expected behavior:
-- Actual behavior:
-- Affected scope:
-- Acceptance criteria:
-- Unknowns:
+## Issue 可执行性卡
+- 来源与关联：
+- 类型：Bug / 功能 / 配置 / 文档
+- [事实] 期望行为：
+- [事实] 实际行为：
+- [事实] 受影响用户/环境：
+- [假设]：依据与验证动作：
+- [推断]：依据与验证动作：
+- [未知]：阻断的决定与请求信息：
 
-## Reproduction or Confirmation
-| Step | Result | Evidence |
-|---|---|---|
+### 验收与非目标
+| AC-ID | 可观察验收 | 证据来源 | 验证归属 |
+|---|---|---|---|
+| AC-1 |  |  |  |
 
-## Implementation Plan
-| Area/File | Change | Reason | Risk |
+- 非目标：
+- 范围外重构/升级：
+- 停止条件：
+```
+
+## 2. 工作区与复现/TDD 账本
+
+```markdown
+## 工作区保护
+- 仓库根目录：
+- 目标分支 / 当前分支 / 基线：
+- `git status --short` 摘要：
+| 文件或区域 | 归属 | 本任务是否触及 | 处理 |
 |---|---|---|---|
 
-## Test Plan
-| Test | Purpose | Command |
-|---|---|---|
+## 复现或不可复现记录
+- 状态：已复现 / 不可复现 / 受阻
+- 环境、版本、数据或权限：
+- 步骤：
+- 期望 / 实际：
+| 状态 | 工作目录 | 命令或动作 | 退出码 | 关键输出 | 证据定位 |
+|---|---|---|---:|---|---|
+| 已运行-失败 / 未运行 |  |  |  |  |  |
+- 不可复现时的变量、最小观测与下一步：
+
+## TDD 账本
+| 证据 ID | 阶段 | 行为 / AC-ID | 状态 | 工作目录 | 完整命令 | 执行时间 | 退出码 | 关键输出 | 证据位置 |
+|---|---|---|---|---|---|---|---:|---|---|
+| RED-E-01 | RED |  | 已运行-失败 |  |  |  |  |  |  |
+| GREEN-E-01 | GREEN |  | 已运行-通过 |  |  |  |  |  |  |
+
+- RED 与 GREEN 必须分行；GREEN-E-* 引用同一行为的 RED-E-*，并说明最小实现与邻近回归所在提交或 diff。
 ```
 
-## PR Description
+## 3. 验收、提交与 PR 模板
 
 ```markdown
-## Summary
-- [What changed]
-- [Why it changed]
+## 验收与验证矩阵
+| AC-ID | 改动责任 | 测试/人工观察 | 状态 | TDD 证据 ID | 证据位置 | 未覆盖项 |
+|---|---|---|---|---|---|
 
-## Linked Issue
-Closes #[issue-number]
+## 提交清单
+| 提交 | 单一审查行为 | 包含文件 | 不包含的范围 |
+|---|---|---|---|
 
-## Changes
-| Area | Change |
-|---|---|
+## PR 描述
+### 关联
+- Issue：
+- 关闭策略：Closes / Refs / 不使用 closing keyword，原因：
 
-## Verification
-| Command or Check | Result |
-|---|---|
+### 问题与最小解法
+- 问题：
+- 解法：
+- 有意未改：
 
-## Risk and Rollout
-- Risk:
-- Rollback:
-- Follow-up:
-```
+### 验证证据
+| PR 证据 ID | 引用 RED/GREEN 证据 ID | 命令或人工检查 | 状态 | 工作目录 | 完整命令或动作 | 执行时间 | 退出码 | 关键输出 | 证据位置 |
+|---|---|---|---|---|---|---|---:|---|---|
 
-Use `Fixes #123`, `Closes #123`, or `Resolves #123` only when the PR should automatically close the GitHub issue after merge. Use `Refs #123` when the PR is related but should not close it.
+- PR 声明的每项“已验证”必须引用至少一个 `GREEN-E-*` 或 `PR-E-*`；不得只写“测试通过”。
 
-## Commit Message Pattern
-
-```text
-fix: handle empty search results
-feat: add team invite acceptance flow
-test: cover transcript parser edge cases
-docs: clarify setup for local evals
+### 风险、回滚与未验证项
+- 风险与影响面：
+- 回滚边界：代码 / flag / 数据 / 外部副作用：
+- 不可逆或不适用理由：
+- 未验证项、owner 与下一步：
 ```

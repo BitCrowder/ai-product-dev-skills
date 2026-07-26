@@ -1,56 +1,47 @@
-# Launch Readiness Checklist
+# 上线就绪检查清单
 
-## Product
+## 输入与裁剪
 
-- Scope matches approved requirements.
-- Acceptance criteria are met.
-- Known limitations are documented.
-- User-facing copy is final.
-- Onboarding or education is ready if needed.
+- [ ] 发布类型、范围/非目标、平台、目标用户、窗口、版本和影响已记录。
+- [ ] 权限、资金、隐私、安全、数据可逆性、依赖、性能、支持和 AI 自主性已做风险分级。
+- [ ] 每个不适用领域有裁剪理由和批准人；高风险、迁移、安全、回滚、决策权限没有被随意裁剪。
+- [ ] 事实、计划、假设、未知和真实结果未混写；缺口有 `GAP-*`、owner 和补充条件。
 
-## Engineering and QA
+## 证据、owner 与阻断
 
-- Build passes.
-- Relevant tests pass.
-- Regression areas were checked.
-- Feature flags or rollout controls are configured.
-- Migration or compatibility concerns are addressed.
-- Performance and reliability risks are understood.
+- [ ] 每个适用 `R-*` 有状态、单一 owner、截止、证据链接或完整命令/结果和阻断级别。
+- [ ] `通过` 只对应可定位的 CI、测试、工单、构建、仪表盘、查询、审批或演练证据；“有人看过”仍是待验证。
+- [ ] 每项 `Blocker` 有影响、最小关闭条件、owner、截止、复核人和未关闭动作。
+- [ ] `风险接受` 有有限范围、缓解、监控、回滚、具名审批人和失效期；没有被伪装成通过。
 
-## Data and AI
+## 功能、质量与运营领域
 
-- Success metrics are defined.
-- Analytics events are implemented or explicitly deferred.
-- Dashboards or queries are ready.
-- For AI features, eval thresholds are met.
-- Monitoring covers failure categories that matter.
+- [ ] 功能范围、验收、已知限制、平台差异、文案/发布说明和变更沟通已验证。
+- [ ] QA 覆盖关键路径、回归、失败状态、权限/边界和受影响平台；结果可复核。
+- [ ] 数据迁移有备份、expand/contract 或等效前向兼容、读写顺序、回填/校验、恢复/补偿和演练状态。
+- [ ] 埋点、数据质量、仪表盘、告警、基线和关键切片已建立；未知阈值不能写成通过。
+- [ ] 性能、容量、可靠性、依赖健康/降级和 SLO 影响已评估。
+- [ ] 支持、FAQ、培训、客服宏、值班、升级路径和用户沟通 owner 可执行。
+- [ ] 隐私、权限、安全、合规和风控已评估；敏感日志、访问控制和审批边界明确。
 
-## Security, Privacy, Compliance
+## AI、flag 与灰度
 
-- Data handling is reviewed.
-- Permissions and access control are checked.
-- Legal or compliance review is complete when required.
-- Sensitive logging is avoided.
+- [ ] AI 内容质量、事实/引用、拒答和风险切片回链真实 eval/Gate 或明确 `GAP-*`。
+- [ ] 提示注入、敏感信息外泄、越权工具、危险参数、循环/副作用分别测试；任一硬失败不可由平均分抵消。
+- [ ] 人工兜底有触发条件、队列/SLA、权限、用户提示、记录和 owner，不只是口头承诺。
+- [ ] flag 名称、默认/目标状态、目标人群、关闭操作、权限和验证证据已写明。
+- [ ] 每一灰度阶段有进入、观察、暂停/回滚和扩大条件；不满足条件不会自动扩大。
 
-## Support and Operations
+## 回滚、决策与观察
 
-- Support team knows what is changing.
-- FAQ or macros are ready when needed.
-- Escalation path is named.
-- Incident owner is assigned.
+- [ ] 回滚触发器是可观测信号/阈值，不依赖模糊主观判断。
+- [ ] 回滚步骤有顺序，决策、执行、验证和沟通分别由单一 owner 负责，并有截止、预计时间和验收查询；代码回退与数据补偿未混为一谈。
+- [ ] 演练记录真实标明时间、环境、范围、执行者、结果和发现项；未演练明确为缺口。
+- [ ] go/no-go 权限人和例外审批人具名；关键 `Blocker` 未关闭只能 no-go 或条件明确的 conditional go。
+- [ ] 发布后观察包含指标/切片、阈值、仪表盘、窗口、行动、值班/支持与扩大/退出标准。
 
-## Communications
+## 最终判定
 
-- Release notes are ready.
-- Internal announcement is ready.
-- Customer communication is ready if applicable.
-- Status page or changelog plan exists when relevant.
-
-## Go/No-Go Red Flags
-
-- No rollback plan.
-- No owner for a blocker.
-- No success metric.
-- No support path for affected users.
-- Known severe bug without mitigation.
-- Monitoring cannot detect the most important failure.
+- [ ] **通过（Go）**：所有 Blocker 已关闭，证据完整，授权人已决策，观察与回滚可执行。
+- [ ] **有条件通过（Conditional go）**：具名授权人批准的有限例外有范围、失效期、owner、阈值、监控和回滚；未把 Blocker 隐藏为风险。
+- [ ] **不通过（No-go）**：关键 Blocker、AI 安全/越权缺口、回滚/迁移兼容缺口、决策权限缺失或不可观察风险仍存在。
