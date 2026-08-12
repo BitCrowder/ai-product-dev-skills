@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="640" viewBox="0 0 1200 640">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#020617"/>
+      <stop offset="100%" stop-color="#0b1220"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="640" fill="url(#bg)"/>
+  <circle cx="1080" cy="80" r="160" fill="#60a5fa" fill-opacity="0.12"/>
+  <circle cx="160" cy="560" r="120" fill="#60a5fa" fill-opacity="0.08"/>
+  <text x="80" y="72" fill="#e2e8f0" font-family="ui-sans-serif,system-ui" font-size="34" font-weight="700">AI Product Dev Skills</text>
+  <text x="80" y="112" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="18">Repeatable Codex/Cursor skills from discovery → PRD → build → launch</text>
+  <rect x="80" y="132" width="120" height="4" rx="2" fill="#60a5fa"/>
+  
+  <rect x="80" y="180" width="320" height="360" rx="16" fill="#0f172a" stroke="#1e293b"/>
+  <rect x="80" y="180" width="320" height="44" rx="16" fill="#111827"/>
+  <rect x="80" y="208" width="320" height="16" fill="#111827"/>
+  <circle cx="102" cy="202" r="5" fill="#ef4444"/>
+  <circle cx="120" cy="202" r="5" fill="#f59e0b"/>
+  <circle cx="138" cy="202" r="5" fill="#22c55e"/>
+  <text x="104" y="252" fill="#60a5fa" font-family="ui-sans-serif,system-ui" font-size="16" font-weight="700">Discover</text>
+  <text x="104" y="250" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Competitive briefs</text>
+<text x="104" y="278" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Interview guides</text>
+<text x="104" y="306" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Feedback synthesis</text>
+<text x="104" y="334" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Metric diagnosis</text>
+
+  <rect x="424" y="180" width="320" height="360" rx="16" fill="#0f172a" stroke="#1e293b"/>
+  <rect x="424" y="180" width="320" height="44" rx="16" fill="#111827"/>
+  <rect x="424" y="208" width="320" height="16" fill="#111827"/>
+  <circle cx="446" cy="202" r="5" fill="#ef4444"/>
+  <circle cx="464" cy="202" r="5" fill="#f59e0b"/>
+  <circle cx="482" cy="202" r="5" fill="#22c55e"/>
+  <text x="448" y="252" fill="#60a5fa" font-family="ui-sans-serif,system-ui" font-size="16" font-weight="700">Decide</text>
+  <text x="448" y="250" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">PRD builder</text>
+<text x="448" y="278" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Roadmap scoring</text>
+<text x="448" y="306" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Experiment design</text>
+<text x="448" y="334" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Evidence ledges</text>
+
+  <rect x="768" y="180" width="320" height="360" rx="16" fill="#0f172a" stroke="#1e293b"/>
+  <rect x="768" y="180" width="320" height="44" rx="16" fill="#111827"/>
+  <rect x="768" y="208" width="320" height="16" fill="#111827"/>
+  <circle cx="790" cy="202" r="5" fill="#ef4444"/>
+  <circle cx="808" cy="202" r="5" fill="#f59e0b"/>
+  <circle cx="826" cy="202" r="5" fill="#22c55e"/>
+  <text x="792" y="252" fill="#60a5fa" font-family="ui-sans-serif,system-ui" font-size="16" font-weight="700">Ship</text>
+  <text x="792" y="250" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Spec → impl plan</text>
+<text x="792" y="278" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Tests & reviews</text>
+<text x="792" y="306" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Launch checklist</text>
+<text x="792" y="334" fill="#94a3b8" font-family="ui-sans-serif,system-ui" font-size="14">Stakeholder updates</text>
+
+</svg>
